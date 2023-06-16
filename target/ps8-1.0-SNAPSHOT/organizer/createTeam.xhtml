@@ -1,0 +1,111 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                    <mycc:navbar/>
+                </header>
+                <!--  Header End -->
+                <div class="container-fluid">
+                    <!--  Row 1 -->
+                    <div class="row">
+                        <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Add New Team</h3>
+
+                        <h:form enctype="multipart/form-data">
+                            <div class="mt-2 w-100 card shadow-2 rounded grid ui-fluid d-flex flex-row justify-content-center align-items-center">
+                                <div class="col-6 md:col-6">
+                                    <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="totalPurse" value="Team Name"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-pencil"></i></div>
+                                            <p:inputText id="teamName" placeholder="Ex: Gujarat Titans" value="#{organizercdi.team.teamName}" title="TeamName" required="true">
+                                            </p:inputText>
+                                        </div>
+                                        <p:message for="teamName" />
+                                    </div>
+                                    <div class=" col-12 md:col-8 ">
+                                        <p:outputLabel for="totalPurse" value="Purse"/>
+                                        
+                                        <div class="ui-inputgroup">
+                                             
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-wallet"></i></div>
+                                            <p:inputNumber id="totalPurse" placeholder="Total Purse" value="#{organizercdi.team.totalPurse}" title="TotalPurse" required="true" >
+                                            </p:inputNumber>
+                                        </div>
+                                        <p:message for="totalPurse" />
+                                    </div>
+                                    <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="photo" value="Logo"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon" style="height:39px"><i class="pi pi-paperclip"></i></div>
+                                            <p:fileUpload   id="photo" value="#{organizercdi.teamLogo}" mode="simple" skinSimple="true" styleClass="ui-button-filled block" required="true"/>
+
+                                        </div>
+                                        <p:message for="photo" />
+                                    </div>
+                                   
+                                </div>
+                                <div class=" col-6 md:col-6 mb-5">
+                                     <div class="col-12 md:col-8">
+                                          <p:outputLabel for="owner" value="Team Owner"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-id-card"></i></div>
+                                            <p:selectOneMenu id="owner" value="#{organizercdi.selectedOwnerId}" placeholder="Select Owner" required="true">
+                                                    <f:selectItems value="#{organizercdi.ownersList}" var="item" itemLabel="#{item.name}" itemValue="#{item.ownerId}"/>
+
+                                            </p:selectOneMenu>                                                               
+                                           
+
+                                        </div>
+                                        <p:message for="owner" />
+                                    </div>
+                                    <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="tournament" value="Tournament"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-shield"></i></div>
+                                            <p:selectOneMenu id="tournament" value="#{organizercdi.selectedtournamentid}" placeholder="Select tournament" required="true">
+                                                   <f:selectItems value="#{organizercdi.fetchAllTournamentsByOrganizerid()}" var="item" itemLabel="#{item.tournamentName}" itemValue="#{item.tournamentId}"/>
+  
+                                            </p:selectOneMenu>
+
+                                        </div>
+                                        <p:message for="tournament" />
+
+                                    </div>
+                                    <div class=" col-12 md:col-4">
+                                        <p:commandButton value="Create" update="messages"  action="#{organizercdi.addNewTeam()}" />
+                                    </div>
+                                </div>
+
+
+
+                                <p:growl id="messages" showDetail="true" />
+                            </div>
+                        </h:form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </h:body>
+</html>

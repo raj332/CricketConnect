@@ -1,0 +1,59 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Organizer Dashboard</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+ <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                    <mycc:navbar/>
+                </header>
+                <!--  Header End -->
+                <div class="container-fluid">
+                    <!--  Row 1 -->
+
+                    <div class="ui-inputgroup-addon"><a href="viewTournaments.jsf"><i class="pi pi-arrow-left"></i> Back To Tournamnets </a></div>
+                    <div class="row mt-3">
+
+                        <ui:repeat value="#{organizercdi.teamList}" var="item" id="teams">
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card overflow-hidden rounded-2">
+                                    <div class="position-relative">
+                                        <a href="javascript:void(0)"><h:graphicImage  value="#{playercdi.getImageDataUrl(item.teamLogo)}" height="200px" class="card-img-top rounded-0" alt="..."/></a>
+                                    </div>
+                                    <div class="card-body pt-3 p-4 d-flex flex-row justify-content-between">
+                                       
+                                        <h6 class="fw-semibold fs-4">Team #{item.teamName}</h6>
+                                        <p:commandButton value="View Squad"  action="../player/PlayerList.xhtml" styleClass="ui-button-info"  />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+
+
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+        <h:outputStylesheet name="libs/jquery/dist/jquery.min.js" />
+        <h:outputStylesheet name="libs/bootstrap/dist/js/bootstrap.bundle.min.js" />
+        <h:outputStylesheet name="js/sidebarmenu.js" />
+        <h:outputStylesheet name="js/app.min.js" />
+        <h:outputStylesheet name="libs/simplebar/dist/simplebar.js" />
+    </h:body>
+</html>
+

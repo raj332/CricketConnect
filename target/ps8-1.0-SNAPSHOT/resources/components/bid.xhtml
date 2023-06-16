@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+
+      xmlns:p="http://primefaces.org/ui">
+    <cc:interface>
+  <cc:attribute name="bid" type="composite.Bid" required="true" />
+</cc:interface>
+    <cc:implementation>
+
+
+     <div class="card-body">
+  <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row">
+       <div> <h:graphicImage library="images" name="team1.jpg" class="card-img-top rounded-0" alt="..." height="100" width="100" style="clip-path: circle(50%);"/>
+      </div>
+
+      <ul class="d-flex flex-column ms-4">
+        <h2>Bid Amount</h2>
+        <h4><b>#{cc.attrs.bid.currentBid}</b> cr.</h4>
+        <p class="text-primary">* Bids Will Be Increased By <b>2 CR.</b> Points</p>
+      </ul>
+    </div>
+    <ul class="d-flex flex-column ms-4">
+      <h2>Bid Timer</h2>
+      <h:form>
+         <h1 class="text-center">
+            <h:outputText id="txt_count" value="#{cc.attrs.bid.timer}"/>
+        </h1>
+
+          <p:poll interval="1000" listener="#{cc.attrs.bid.decrement}"  update="txt_count" autoStart="true"/>
+    </h:form>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+    </cc:implementation>
+
+
+</html>
+

@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+        <!--  Body Wrapper -->
+        <h:form>
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        <mycc:navbar/>
+                    </header>
+                    <!--  Header End -->
+                    <div class="container-fluid">
+                        <!--  Row 1 -->
+                        <div class="row ">
+                            <div class = "container-fluid m-5 " style="width: 90vw">
+                                <h:form >
+                                    <b:dataTable value="#{ownercdi.displayOwners()}" var="item" 
+                                                 page-length="5"
+                                                 page-length-menu="5,10,20" class="mt-5">
+                                        <f:facet name="header">
+                                            <tr>
+                                                <th>Owner Id</th>
+                                                <th>Name</th>
+                                                <th>Mobile No</th>
+
+
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </f:facet>
+                                        <b:dataTableColumn value="#{item.ownerId}" />
+                                        <b:dataTableColumn value="#{item.name}" />
+                                        <b:dataTableColumn value="#{item.mobileNumber}" />
+
+
+
+                                        <h:column>
+                                            <h:commandButton class="btn btn-primary" value="Edit" action="#{ownercdi.loadupdate(item)}"/>                  
+                                        </h:column>
+                                        <h:column>
+                                            <h:commandButton class="btn btn-danger" value="Delete" action="#{ownercdi.delete(item.ownerId)}"/>                  
+                                        </h:column>
+                                    </b:dataTable>
+                                </h:form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </h:body>
+</html>
+

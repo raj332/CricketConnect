@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:body>
+        <h:form>
+            
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <mycc:sidebar items="#{playercdi.sidebarItems}" />
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                  <mycc:navbar/>
+                </header>
+                <!--  Header End -->
+                
+                <div class="container-fluid d-flex flex-column justify-content-between">
+                    <div class="container-fluid d-flex flex-row justify-content-between col-xl-12">
+
+                       
+                        <ui:repeat value="#{playercdi.tournamnetList}" var="item" id="tournaments">
+
+                            
+                            <div class="shadow rounded col-xl-3 mx-1 ">
+
+                                <div class="card-body ">
+                                    <div class="d-flex flex-column justify-content-around align-items-center my-1">
+
+                                        <h:graphicImage library="images" name="team4.png" alt="" width="250" height="170"></h:graphicImage>
+                                        <div class="d-flex flex-row justify-content-between w-75">
+                                        <h3 class="card-title mt-2 text-bold">#{item.tournamentName}</h3>
+                                        <h3 class="card-title mt-2 text-bold">#{item.tournamentId}</h3>
+                                        <h:commandButton class="btn btn-primary btn-sm m-1 w-75" value="Participate" action="#{playercdi.inroll(item.tournamentId)}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </ui:repeat>
+
+                    </div>
+
+                </div>
+                    
+            </div>
+        </div>
+         </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+  
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+     <h:outputStylesheet name="primeflex/primeflex.css"/>
+   
+    <h:body>
+        <h:form>
+            
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                  
+                </header>
+                <!--  Header End -->
+                
+            <div class="z-index-0 container-fluid d-flex flex-row justify-content-between">
+        <div class="container-fluid d-flex flex-column justify-content-between">
+            <div class="card bg-dark shadow rounded bg-info col-xxl-10 mt-5">
+             <mycc:playerProfile item="#{playercdi.displayPlayers()}" />
+            </div>
+             <div class="card col-xxl-11 shadow bg-body rounded">
+                 <mycc:bid bid="#{ownercdi.updateBidDetails()}" />
+             </div>
+        
+        </div>
+        
+        <div class="card col-xxl-3 shadow bg-body rounded">
+          <div class="card-body">
+            <div class="card-body h-100 d-flex flex-column justify-content-between">
+           
+              <ul>
+                <li class="h5 text-info text-center">Purse Remaining</li>
+                <li class="h4 text-center"><b>65 CR.</b></li>
+                <li class="h5 text-info text-center">Bought Players</li>
+                <li class="h4 text-center"><b>2</b></li>
+                <li class="h5 text-center text-info">Remaining </li>
+                <li class="h4 text-center"><b>13</b></li>
+              </ul>
+            
+              <div class="d-flex flex-column justify-content-between">
+                  <p:commandButton value="place bid" styleClass="btn  btn-outline-success mb-3" action="#{ownercdi.updateBidDetails()}" />
+
+                <button class="btn  btn-outline-danger mb-3">Revoke Bid</button>
+                <button class="btn  btn-info mb-3">View Squad</button>
+                
+              </div>
+              <div>
+                <button class="btn w-100 btn-outline-dark">Log Out</button>
+              </div>
+               
+             
+            
+           
+           
+            </div>
+          </div>
+        </div>
+      </div>
+            </div>
+        </div>
+         </h:form>
+    </h:body>
+</html>
+

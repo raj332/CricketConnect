@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+     <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+
+        <p:growl id="messages" showDetail="true"/>
+
+
+
+        <h:form enctype="multipart/form-data" id="myform" >
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        <mycc:navbar/>
+                    </header>
+                    <!--  Header End -->
+                    <div class="container-fluid">
+                        <!--  Row 1 -->
+                        <div class="row d-flex justify-content-center align-items-center">
+                              <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Add Team Owners </h3>
+                            <div class="w-75 py-3 card shadow-2 rounded  ui-fluid formgrid grid d-flex  justify-content-center align-items-center">
+                                <div class=" col-12 md:col-8">
+                                    <p:outputLabel value="User id : " for="ownerId" />
+                                    <div class="ui-inputgroup">
+                                        <div class="ui-inputgroup-addon"><i class="pi pi-pencil"></i></div>
+                                        <p:inputText id="ownerId" value="#{ownercdi.owner.ownerId}" title="ownerId" required="true" requiredMessage="The ownerId field is required.">
+                                            <p:ajax event="blur" listener="#{ownercdi.checkUsernameAvailability()}" update="availabilityMessage availability"  />
+                                        </p:inputText>
+                                    </div>
+                                    <p:outputPanel id="availabilityMessage">
+                                        <h:outputText rendered="#{ownercdi.msg}" id="outputText" value="Username not avaliable" style="color:black" />
+                                    </p:outputPanel>
+                                     <p:message for="ownerId" />
+                                </div>
+                                <div class=" col-12 md:col-8 ">
+                                    <p:outputLabel value="MobileNumber:" for="mobileNumber" />
+
+                                    <div class="ui-inputgroup">
+
+                                        <div class="ui-inputgroup-addon"><i class="pi pi-phone"></i></div>
+                                        <p:inputText id="mobileNumber" value="#{ownercdi.owner.mobileNumber}" title="MobileNumber" required="true">
+                                            
+                                        </p:inputText>
+
+                                    </div>
+                                    <p:message for="mobileNumber" />
+                                </div>
+                                <div class=" col-12 md:col-8">
+                                    <p:outputLabel value="Name:" for="name" />
+                                    <div class="ui-inputgroup">
+                                        <div class="ui-inputgroup-addon" style="height:39px"><i class="pi pi-id-card"></i></div>
+                                        <p:inputText id="name" value="#{ownercdi.owner.name}" title="Name" required="true">
+                                        </p:inputText>
+                                    </div>
+                                    <p:message for="name" />
+                                </div>
+                                <div class=" col-12 md:col-8">
+                                    <p:outputLabel value="Password" for="pass" />
+                                    <div class="ui-inputgroup ">
+                                        <div class="ui-inputgroup-addon" style="height:39px"><i class="pi pi-lock"></i></div>
+                                        <p:password id="pass" value="#{ownercdi.currentPassword}" title="Password" required="true" feedback="true" inline="false"/>
+                                    </div>
+                                    <p:message for="pass" />
+                                </div>
+                                <div class=" col-12 md:col-8">
+
+                                        <p:commandButton action="#{ownercdi.insertOwner()}" value="add"  disabled="#{ownercdi.msg}" id="availability" class="btn btn-primary w-25 "/>
+                                   
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                     </div>
+                  </div>
+
+        </h:form>
+    </h:body>
+</html>

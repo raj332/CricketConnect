@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <security-constraint>
+        <display-name>Secure pages for Organizer</display-name>
+        <web-resource-collection>
+            <web-resource-name>Organizer's Resource</web-resource-name>
+            <description>Organizer Secured Resources</description>
+            <url-pattern>/organizer/*</url-pattern>
+             <url-pattern>/teamowner/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only for Organizer</description>
+            <role-name>organizer</role-name>
+        </auth-constraint>
+    </security-constraint>
+     <security-constraint>
+        <display-name>Secure pages for Auctioneer</display-name>
+        <web-resource-collection>
+            <web-resource-name>Auctioneer's Resource</web-resource-name>
+            <description>Auctioneer Secured Resources</description>
+            <url-pattern>/auctioneer/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only for Auctioneer</description>
+            <role-name>auctioneer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Secure pages for Player</display-name>
+        <web-resource-collection>
+            <web-resource-name>Player's Resource</web-resource-name>
+            <description>Player Secured Resources</description>
+            <url-pattern>/Player/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only for Player</description>
+            <role-name>player</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Secure pages for teamowner</display-name>
+        <web-resource-collection>
+            <web-resource-name>teamowner's Resource</web-resource-name>
+            <description>teamowner Secured Resources</description>
+            <url-pattern>/teamowner/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only for teamowner</description>
+            <role-name>teamowner</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403Forbidden.html</location>
+    </error-page>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>login.jsf</welcome-file>
+    </welcome-file-list>
+</web-app>

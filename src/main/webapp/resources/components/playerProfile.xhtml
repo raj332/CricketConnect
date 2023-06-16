@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   
+    <cc:interface>
+        <cc:attribute name="item" type="entities.Playermaster" required="true" />
+        
+    </cc:interface> 
+    <cc:implementation>
+      <!-- Sidebar scroll-->
+      
+          
+            
+              <div class="card-body">
+              <div class="d-flex flex-row justify-content-between ">
+                <ul class="d-flex flex-column justify-content-">
+                  <h3 class="text-light">Name    : jaimin bhatt#{item.name}</h3>
+                  <h3 class="text-light">Batting : Right Hand#{item.battingType}</h3>
+                  <h3 class="text-light">Bowling : Right Arm Fast#{item.bowlingType}</h3>
+                  <h3 class="text-light">Age     : 23 #{item.age}</h3>
+                 
+                </ul>
+                <div style="z-index: 2; position: absolute; bottom: 55%; left: 65%;"><img src="#{item.photo}" alt="" srcset="" height="200" width="190" style="clip-path: inset(0 10% 10% 10%);"/></div>
+              </div>
+             
+              </div>
+            
+          
+      
+        
+    
+      
+    
+        
+    </cc:implementation>
+     
+   
+</html>
+

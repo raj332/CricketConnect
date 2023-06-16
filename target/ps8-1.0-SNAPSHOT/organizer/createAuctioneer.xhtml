@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+       
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+        <!--  Body Wrapper -->
+        <h:form>
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        <mycc:navbar/>
+                    </header>
+                    <!--  Header End -->
+                    <div class="container-fluid">
+                        <!--  Row 1 -->
+                        <div class="row ">
+                            <div class="page-wrapper d-flex justify-content-center align-items-center" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                                 data-sidebar-position="fixed" data-header-position="fixed">
+                                <div class="w-75 card shadow-2 rounded  ui-fluid formgrid grid d-flex flex-column justify-content-between align-items-center">
+
+                                    <div class=" col-12 md:col-8 my-3">
+
+                                        <h3  class="text-center text-700 text-bold text-primary">Add Auctioneer</h3>
+                                    </div>
+                                    <div class=" col-12 md:col-8 my-3">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-pencil"></i></div>
+                                            <p:inputText id="auctioneerID" placeholder="Auctioneer ID" value="#{organizercdi.auctioneer.auctioneerId}" title="auctioneerID" required="true" requiredMessage="The auctioneerID field is required.">
+                                                <p:keyFilter  regEx="[A-Z][a-z][0-9]" />
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-8 my-3">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                                            <p:inputText id="name" placeholder="name" value="#{organizercdi.auctioneer.name}" title="name" required="true" requiredMessage="The name field is required.">
+                                                <p:keyFilter  regEx="[A-Z][a-z]" />
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 md:col-8 my-3">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-phone"></i></div>
+                                            <p:inputText id="mobileNumber" placeholder="mobileNumber" value="#{organizercdi.auctioneer.mobileNumber}" title="mobileNumber" required="true" requiredMessage="The mobileNumber field is required." readonly="false">
+                                                <p:keyFilter  regEx="[0-9]{10}" />
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-8 my-3">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-lock"></i></div>
+                                            <p:inputText id="password" placeholder="password" value="#{organizercdi.currentPassword}" title="name" required="true" requiredMessage="The Password field is required.">
+                                                <p:keyFilter  regEx="[A-Z][a-z]" />
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-4 my-3 ">
+                                        <p:commandButton  value="Create" action="#{organizercdi.createAuctioneer()}" class="text-bold text-xl"></p:commandButton>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </h:body>
+</html>
+

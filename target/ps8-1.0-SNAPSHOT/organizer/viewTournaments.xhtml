@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Tournaments</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:body>
+        <h:form class ="mt-4">
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <!-- Sidebar Start -->
+                <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+                <!--  Sidebar End -->
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        <mycc:navbar/>
+                    </header>
+                    <!--  Header End -->
+
+                    <div class="container-fluid d-flex flex-column justify-content-between">
+                        <div class="container-fluid d-flex flex-row justify-content-between col-xl-12">
+
+                            <div style="margin-top: 1%">
+
+
+                                <div class="card shadow rounded">
+                                    <p:dataTable var="item" value="#{organizercdi.fetchAllTournamentsByOrganizerid()}">
+
+
+
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{item.tournamentId}" />
+                                        </p:column>
+
+                                        <p:column headerText="Tournament">
+                                            <h:outputText value="#{item.tournamentName}" />
+                                        </p:column>
+                                        <p:column headerText="Oganizer">
+                                            <h:outputText value="#{item.organizerId.name}" />
+                                        </p:column>
+                                        <p:column headerText="Date">
+                                            <h:outputText value="#{item.startingDate}" />
+                                        </p:column>
+                                        <p:column headerText=""  >
+                                            <div class="d-flex flex-row justify-content-between">
+
+                                                <p:commandButton styleClass=" ui-button-primary"  icon="pi pi-pencil"  action="#"/>                
+
+                                                <p:commandButton styleClass="ui-button-warning" value="Manage Teams" icon="pi pi-user" action="#{organizercdi.getTeamsByTournament(item.tournamentId)}" />  
+
+                                            </div>
+
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>   
+                </div>
+            </div>
+
+        </h:form>
+
+    </h:body>
+</html>
+
+
+

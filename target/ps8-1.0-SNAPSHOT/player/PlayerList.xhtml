@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:body>
+        <h:form>
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <!-- Sidebar Start -->
+                <mycc:sidebar items="#{playercdi.sidebarItems}" />
+                <!--  Sidebar End -->
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        <mycc:navbar/>
+                    </header>
+                    <!--  Header End -->
+
+                    <div class="container-fluid d-flex flex-column justify-content-between">
+                        <div class="container-fluid d-flex flex-row justify-content-between col-xl-12">
+
+                            <div style="margin-top: 1%">
+
+
+                                <div class="card">
+                                    <p:dataTable var="item" value="#{playercdi.displayPlayers()}">
+
+                                        <p:column headerText="name">
+                                            <h:outputText value="#{item.name}" />
+                                        </p:column>
+                                        <p:column headerText="Number">
+                                            <h:outputText value="#{item.mobileNumber}" />
+                                        </p:column>
+
+
+
+                                        <p:column headerText="Photo">
+
+                                            <f:facet name="header">
+                                                <h:outputText value="Photo"/>
+                                            </f:facet>
+                                            <h:graphicImage value="#{playercdi.getImageDataUrl(item.photo)}" style="height: 80px; width: 80px;"/>
+
+
+                                        </p:column>
+                                        <p:column headerText="Bowling">
+                                            <h:outputText value="#{item.bowlingType}" />
+                                        </p:column>
+
+                                        <p:column headerText="Batting">
+                                            <h:outputText value="#{item.battingType}" />
+                                        </p:column>
+
+                                        <p:column headerText="Position">
+                                            <h:outputText value="#{item.battingPosition}" />
+                                        </p:column>
+                                        <p:column headerText="age">
+                                            <h:outputText value="#{item.age}" />
+                                        </p:column>
+                                        <p:column headerText="keeper">
+                                            <h:outputText value="#{item.isWicketkeeper}" />
+                                        </p:column>
+
+                                        <p:column headerText="Delete"  >
+                                            <div class="d-flex flex-column justify-content-between">
+                                                <h:commandButton class=" btn btn-sm btn btn-primary" value="Edit" action="#{playercdi.loadupdate(item)}"/>                  
+
+                                                <h:commandButton class="mt-1 btn btn-sm btn btn-danger" value="Delete" action="#{playercdi.delete(item)}"/>                  
+
+                                            </div>
+
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
+
