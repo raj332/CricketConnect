@@ -10,7 +10,7 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    
+  
     <h:outputStylesheet name="css/styles.min.css" />
     <h:body>
         <h:form>
@@ -35,7 +35,7 @@
                         <ui:repeat value="#{auctioneercdi.showAuctionsByAuctioneer()}" var="item" id="auctions">
 
                             
-                             <div class="col-sm-6 col-xl-3">
+                             <div class="card rounded-2 col-sm-6 col-xl-3 shadow">
                                     <div class="card rounded-2 shadow">
                                         <div class="position-relative">
 
@@ -47,7 +47,7 @@
 
                                         </div>
                                         <div class="d-flex justify-content-around mb-2">
-                                            <p:commandButton id="btn" update="btn" value="#{item.status}" styleClass="ui-button-danger ui-button-outlined" action="#{auctioneercdi.teamListForAuction(item)}"  disabled="#{item.status eq 'upcomming'}" />
+                                            <p:commandButton id="btn" update="btn" value="#{item.status}" styleClass="ui-button-danger ui-button-outlined" action="#" disabled="#{item.status eq 'upcomming'}" />
                                     
 
                                         </div>
