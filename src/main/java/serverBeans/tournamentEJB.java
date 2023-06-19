@@ -73,5 +73,41 @@ public class tournamentEJB implements tournamentEJBLocal {
     }
     }
 
-      
+    @Override
+    public boolean removeTournament(int id) {
+         try{
+        em.remove( em.find(Tournamenttb.class, id));
+        em.flush();
+        return true;
+            
+        }catch(Exception ex){
+        return false;
+    } 
+    }
+  @Override
+    public boolean editTournament(Tournamenttb t1){
+         try{
+        Tournamenttb t2=  em.find(Tournamenttb.class, t1.getTournamentId());
+        t2.setStartingDate(t1.getStartingDate());
+        t2.setTournamentName(t1.getTournamentName());
+        em.persist(t2);
+        return true;
+            
+        }catch(Exception ex){
+        return false;
+    } 
+    }
+
+    @Override
+    public List<Tournamenttb> getTournamentForAuction(String oid) {
+        try{
+ Organizermaster a1 = new Organizermaster();
+            a1.setOrganizerId(oid);
+          List<Tournamenttb> trns = em.createNamedQuery("Tournamenttb.findByOrganizerIdWithoutAuction").setParameter("organizerId", a1).getResultList();
+           return trns;
+            
+        }catch(Exception ex){
+        return null;
+        }
+    }
 }

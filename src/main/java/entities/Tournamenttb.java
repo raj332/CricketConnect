@@ -36,6 +36,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tournamenttb.findAll", query = "SELECT t FROM Tournamenttb t"),
     @NamedQuery(name = "Tournamenttb.findByTournamentId", query = "SELECT t FROM Tournamenttb t WHERE t.tournamentId = :tournamentId"),
     @NamedQuery(name = "Tournamenttb.findByOrganizerId", query = "SELECT t FROM Tournamenttb t WHERE t.organizerId = :organizerid"),
+    @NamedQuery(name = "Tournamenttb.findForAuction", query = "SELECT t FROM Tournamenttb t WHERE t.organizerId = :organizerid AND t.tournamentId NOT IN (SELECT a.tornamentId FROM Auctiondetailtb a  )"),
+@NamedQuery(name = "Tournamenttb.findByOrganizerIdWithoutAuction",
+    query = "SELECT t FROM Tournamenttb t WHERE t.organizerId = :organizerId AND NOT EXISTS (SELECT a FROM Auctiondetailtb a WHERE a.tornamentId.tournamentId = t.tournamentId)"),
     @NamedQuery(name = "Tournamenttb.findByTournamentName", query = "SELECT t FROM Tournamenttb t WHERE t.tournamentName = :tournamentName"),
     @NamedQuery(name = "Tournamenttb.findByStartingDate", query = "SELECT t FROM Tournamenttb t WHERE t.startingDate = :startingDate")})
 public class Tournamenttb implements Serializable {

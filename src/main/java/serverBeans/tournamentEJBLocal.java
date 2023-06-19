@@ -17,7 +17,10 @@ public interface tournamentEJBLocal {
     boolean createTournamnet( Tournamenttb tournamnent);
     List<Tournamenttb> getAllTournament();
     List<Tournamenttb> getTournamentByOrganizer(String id);
-        public List<Tournamenttb> getTournamentByPlayersid(String id) ;
+        List<Tournamenttb> getTournamentForAuction(String id);
 
+    List<Tournamenttb> getTournamentByPlayersid(String id) ;
+    boolean removeTournament(int id);
     Tournamenttb getTournamentById(int id);
+    boolean editTournament(Tournamenttb t1);
 }

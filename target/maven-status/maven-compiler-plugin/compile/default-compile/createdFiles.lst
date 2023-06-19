@@ -15,7 +15,6 @@ entities\Battingtypemaster.class
 serverBeans\soldPlayerEJB.class
 serverBeans\organizerBeansLocal.class
 restClient\playerClient.class
-serverBeans\NewServlet.class
 serverBeans\tournamentPlayersEJBLocal.class
 entities\Battingtypemaster_.class
 cdiBeans\commonCdi.class
