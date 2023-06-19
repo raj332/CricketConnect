@@ -214,16 +214,16 @@
 }
 
 .service-item:hover {
-    background: var(--primary);
+    background: white;
 }
 
 .service-item * {
     transition: .5s;
 }
 
-.service-item:hover * {
+/*.service-item:hover * {
     color: var(--light) !important;
-}
+}*/
 
 
 /*** Food Menu ***/

@@ -5,14 +5,19 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,10 +25,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "playermaster")
+@Table(name = "playermaster", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Playermaster.findAll", query = "SELECT p FROM Playermaster p"),
     @NamedQuery(name = "Playermaster.findByPlayerId", query = "SELECT p FROM Playermaster p WHERE p.playerId = :playerId"),
@@ -80,16 +85,25 @@ public class Playermaster implements Serializable {
     @NotNull
     @Column(name = "isWicketkeeper")
     private boolean isWicketkeeper;
+    @JoinTable(name = "player_tournament_mapping", joinColumns = {
+        @JoinColumn(name = "playerId", referencedColumnName = "playerId")}, inverseJoinColumns = {
+        @JoinColumn(name = "tournamentId", referencedColumnName = "tournamentId")})
+    @ManyToMany
+    private List<Tournamenttb> tournamenttbList;
+    @JoinTable(name = "player_auction_mapping", joinColumns = {
+        @JoinColumn(name = "playerId", referencedColumnName = "playerId")}, inverseJoinColumns = {
+        @JoinColumn(name = "auctionId", referencedColumnName = "auctionId")})
+    @ManyToMany
+    private List<Auctiondetailtb> auctiondetailtbList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "playermaster")
     private Unsoldplayertb unsoldplayertb;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "playerId")
-    private Tournamentplayerslist tournamentplayerslist;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "playerId")
+    private List<Tournamentplayerslist> tournamentplayerslistList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "playermaster")
     private Soldplayertb soldplayertb;
+
     public Playermaster() {
     }
-
-
 
     public Playermaster(String playerId) {
         this.playerId = playerId;
@@ -179,6 +193,22 @@ public class Playermaster implements Serializable {
         this.isWicketkeeper = isWicketkeeper;
     }
 
+    public List<Tournamenttb> getTournamenttbList() {
+        return tournamenttbList;
+    }
+
+    public void setTournamenttbList(List<Tournamenttb> tournamenttbList) {
+        this.tournamenttbList = tournamenttbList;
+    }
+
+    public List<Auctiondetailtb> getAuctiondetailtbList() {
+        return auctiondetailtbList;
+    }
+
+    public void setAuctiondetailtbList(List<Auctiondetailtb> auctiondetailtbList) {
+        this.auctiondetailtbList = auctiondetailtbList;
+    }
+
     public Unsoldplayertb getUnsoldplayertb() {
         return unsoldplayertb;
     }
@@ -187,12 +217,12 @@ public class Playermaster implements Serializable {
         this.unsoldplayertb = unsoldplayertb;
     }
 
-    public Tournamentplayerslist getTournamentplayerslist() {
-        return tournamentplayerslist;
+    public List<Tournamentplayerslist> getTournamentplayerslistList() {
+        return tournamentplayerslistList;
     }
 
-    public void setTournamentplayerslist(Tournamentplayerslist tournamentplayerslist) {
-        this.tournamentplayerslist = tournamentplayerslist;
+    public void setTournamentplayerslistList(List<Tournamentplayerslist> tournamentplayerslistList) {
+        this.tournamentplayerslistList = tournamentplayerslistList;
     }
 
     public Soldplayertb getSoldplayertb() {

@@ -2,6 +2,7 @@ package entities;
 
 import entities.Auctiondetailtb;
 import entities.Organizermaster;
+import entities.Playermaster;
 import entities.Teammaster;
 import entities.Tournamentplayerslist;
 import entities.Unsoldplayertb;
@@ -11,7 +12,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-06-19T15:54:34")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-06-19T16:34:17")
 @StaticMetamodel(Tournamenttb.class)
 public class Tournamenttb_ { 
 
@@ -21,6 +22,7 @@ public class Tournamenttb_ {
     public static volatile ListAttribute<Tournamenttb, Auctiondetailtb> auctiondetailtbList;
     public static volatile SingularAttribute<Tournamenttb, Integer> tournamentId;
     public static volatile ListAttribute<Tournamenttb, Tournamentplayerslist> tournamentplayerslistList;
+    public static volatile ListAttribute<Tournamenttb, Playermaster> playermasterList;
     public static volatile SingularAttribute<Tournamenttb, Date> startingDate;
     public static volatile ListAttribute<Tournamenttb, Teammaster> teammasterList;
 

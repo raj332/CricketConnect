@@ -19,10 +19,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "bowlingtypemaster")
+@Table(name = "bowlingtypemaster", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Bowlingtypemaster.findAll", query = "SELECT b FROM Bowlingtypemaster b"),
     @NamedQuery(name = "Bowlingtypemaster.findByBowlingTypeId", query = "SELECT b FROM Bowlingtypemaster b WHERE b.bowlingTypeId = :bowlingTypeId"),

@@ -21,10 +21,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "projectgroups")
+@Table(name = "projectgroups", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Projectgroups.findAll", query = "SELECT p FROM Projectgroups p"),
     @NamedQuery(name="Projectgroups.findByUserId", query=" SELECT p FROM Projectgroups p WHERE p.userId = :userId"),
@@ -39,8 +39,8 @@ public class Projectgroups implements Serializable {
     @Column(name = "groupName")
     private String groupName;
     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "groupId")
     private Integer groupId;
     @JoinColumn(name = "userId", referencedColumnName = "userId")

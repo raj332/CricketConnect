@@ -4,7 +4,9 @@
  */
 package serverBeans;
 
+import Authentication.KeepRecord;
 import entities.Organizermaster;
+import entities.Playermaster;
 import entities.Tournamenttb;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -42,7 +44,18 @@ public class tournamentEJB implements tournamentEJBLocal {
     @Override
     public Tournamenttb getTournamentById(int id) {
      try{
-        return em.find(Tournamenttb.class, id);
+          Tournamenttb tournament= (Tournamenttb) em.createNamedQuery("Tournamenttb.findByPlayerId")
+                  .setParameter("tournamentId", id)
+                  .getSingleResult();
+          Playermaster player = em.find(Playermaster.class,KeepRecord.getUserid());
+//           if(tournament.getPlayermasterList().contains(player)){
+//               return new Tournamenttb();
+//           }
+//           else{
+               return tournament;
+//           }
+//        return em.find(Tournamenttb.class, id);
+
     }catch(Exception ex){
         return null;
     }

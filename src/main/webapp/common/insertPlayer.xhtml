@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:body>
+
+
+
+        <p:growl id="growl" showDetail="true" />
+
+        <h:form enctype="multipart/form-data" id="myform" >
+
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <div
+                    class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+                    <div class="d-flex align-items-center justify-content-center w-100">
+
+                        <div class="row justify-content-center w-100">
+
+                            <div class="col-md-12 col-lg-12 col-xxl-6">
+                                <div class="card mb-0">
+                                    <h2 class="text-center form-label pt-3">Register</h2>
+
+                                    <div class="card-body">
+
+
+
+                                        <div class=" row">
+                                            <div class="col-xxl-6 form-label">
+                                                <p:outputLabel value="User id  " for="playerId" />
+                                                <p:inputText id="playerId" value="#{playercdi.player.playerId}" title="PlayerId" required="true" requiredMessage="The PlayerId field is required." class="form-control rounded">
+                                                    <p:ajax event="blur" listener="#{playercdi.checkUsernameAvailability()}" update="availabilityMessage availability"  />
+                                                </p:inputText>
+                                                <p:message for="playerId"/>
+                                                <p:outputPanel id="availabilityMessage">
+                                                    <h:outputText rendered="#{playercdi.msg}" id="outputText" value="Username not avaliable" style="color:black" />
+                                                </p:outputPanel>
+                                            </div>
+                                            <div class="col-xxl-6 form-label">
+                                                <p:outputLabel value="MobileNumber" for="mobileNumber" />
+                                                <p:inputText id="mobileNumber" value="#{playercdi.player.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required." class="form-control rounded"/>
+                                                <p:message for="mobileNumber"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row form-label">
+                                            <div class="col-xxl-6">
+                                                <p:outputLabel value="Name" for="name" />
+                                                <p:inputText id="name" value="#{playercdi.player.name}" title="Name" required="true" requiredMessage="The Name field is required." class="form-control rounded"/>
+                                                <p:message for="name"/>
+                                            </div>
+                                            <div class="d-flex flex-column col-xxl-6 form-label">
+                                                <p:outputLabel value="Password" for="pass" />
+                                                <p:password id="pass"  toggleMask="true" redisplay="true"  value="#{playercdi.currentPassword}" title="Password" required="true" requiredMessage="The Password field is required." styleClass=" h-100 form-control rounded"/>
+                                                <p:message for="pass"/>                                           
+
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <div class="col-xxl-6 form-label">
+                                                <p:outputLabel value="Batting " for="batting" />
+                                                <h:selectOneMenu id="batting" value="#{playercdi.player.battingType}" title="batting" required="true" requiredMessage="The batting type field is required." class="form-select" >
+                                                    <f:selectItems value="#{playercdi.battingTypesList}" var="item" itemLabel="#{item.type}" itemValue="#{item.type}"/> 
+                                                </h:selectOneMenu>
+                                                <p:message for="batting"/>                
+                                            </div>
+                                            <div class="col-xxl-6 form-label">
+                                                <p:outputLabel value="Bowling Type:" for="Bowling " />
+                                                <h:selectOneMenu id="Bowling" value="#{playercdi.player.bowlingType}" title="BowlingType" required="true" requiredMessage="The Bowling Type field is required." class="form-select">
+                                                    <f:selectItems value="#{playercdi.bowlingTypesList}" var="item" itemLabel="#{item.type}" itemValue="#{item.type}"/> 
+                                                </h:selectOneMenu>
+                                                <p:message for="Bowling"/>  
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <div class="col-xxl-6 form-label">
+                                                <p:outputLabel value="Position:" for="battingPosition" />
+                                                <h:selectOneMenu id="battingPosition" value="#{playercdi.player.battingPosition}" title="Batting Position" required="true" requiredMessage="The Position field is required." class="form-select" >
+                                                    <f:selectItems value="#{playercdi.battingPosition}"/> 
+                                                </h:selectOneMenu>
+                                                <p:message for="battingPosition"/>  
+                                            </div>
+                                            <div class="col-xxl-6 form-label">
+                                                <h:outputLabel value="Age" for="age" />
+                                                <p:inputText id="age" value="#{playercdi.player.age}" title="Age" required="true" requiredMessage="The Age field is required." class="form-control rounded"/>
+                                                <p:message for="age"/>
+                                            </div>
+                                        </div>
+                                        <div class=" row">
+                                            <div class="col-xxl-3 form-label">
+                                                <h:outputLabel value="Wicketkeeper  " for="isWicketkeeper" />
+                                                <h:selectOneRadio  value="#{playercdi.player.isWicketkeeper}" id="isWicketkeeper" class="form-radio w-75 rounded">
+                                                    <f:selectItem itemValue="true" itemLabel="Yes"  /> 
+                                                    <f:selectItem itemValue="false" itemLabel="No" />
+                                                </h:selectOneRadio>
+
+                                            </div>
+                                            
+                                            <div class="col-xxl-9 d-flex flex-column">
+                                                <h:outputLabel value="Photo" for="photo" class="form-label" />
+                                                <p:fileUpload value="#{playercdi.file}" mode="simple"  skinSimple="true" styleClass="rounded ui-button-outlined" style="font-size: 10px;"  />
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-xxl-12 form-label d-flex justify-content-end">
+                                            <p:commandButton action="#{playercdi.insertPlayer()}" value="Register"  disabled="#{playercdi.msg}" id="availability" update="growl" class="btn btn-success "/>
+
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-4">
+                                        <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
+                                        <a class="text-primary fw-bold ms-2" href="../login.jsf">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

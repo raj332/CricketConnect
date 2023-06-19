@@ -4,6 +4,7 @@
  */
 package serverBeans;
 
+import entities.Auctiondetailtb;
 import entities.Auctioneermaster;
 import entities.Projectgroups;
 import entities.Projectusers;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
@@ -80,5 +82,14 @@ public class auctioneerEJB implements auctioneerEJBLocal {
         return null;
     }
     }
+
+    @Override
+    public List<Auctiondetailtb> getAuctionsByAuctioneer(String id) {
+       Query query = em.createNativeQuery("SELECT * FROM `auctiondetailtb` WHERE auctioneerId=?",
+                 Auctiondetailtb.class);
+        query.setParameter(1, id);
+        return query.getResultList();
+    }
+    
  
 }

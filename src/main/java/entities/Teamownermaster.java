@@ -21,10 +21,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "teamownermaster")
+@Table(name = "teamownermaster", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Teamownermaster.findAll", query = "SELECT t FROM Teamownermaster t"),
     @NamedQuery(name = "Teamownermaster.findByOwnerId", query = "SELECT t FROM Teamownermaster t WHERE t.ownerId = :ownerId"),
@@ -87,7 +87,7 @@ public class Teamownermaster implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-@JsonbTransient
+    @JsonbTransient
     public List<Teammaster> getTeammasterList() {
         return teammasterList;
     }

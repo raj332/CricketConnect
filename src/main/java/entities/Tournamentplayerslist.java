@@ -22,55 +22,52 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "tournamentplayerslist")
+@Table(name = "tournamentplayerslist", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Tournamentplayerslist.findAll", query = "SELECT t FROM Tournamentplayerslist t"),
     @NamedQuery(name = "Tournamentplayerslist.findByPlayerId", query = "SELECT t FROM Tournamentplayerslist t WHERE t.playerId = :playerId"),
     @NamedQuery(name = "Tournamentplayerslist.findByPlayerStatus", query = "SELECT t FROM Tournamentplayerslist t WHERE t.playerStatus = :playerStatus"),
-    @NamedQuery(name = "Tournamentplayerslist.findByIsApproved", query = "SELECT t FROM Tournamentplayerslist t WHERE t.isApproved = :isApproved")})
+    @NamedQuery(name = "Tournamentplayerslist.findByIsApproved", query = "SELECT t FROM Tournamentplayerslist t WHERE t.isApproved = :isApproved"),
+    @NamedQuery(name = "Tournamentplayerslist.findByTpid", query = "SELECT t FROM Tournamentplayerslist t WHERE t.tpid = :tpid")})
 public class Tournamentplayerslist implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tpid")
-    private Integer tpid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "playerStatus")
     private String playerStatus;
-    
     @Basic(optional = false)
     @NotNull
     @Column(name = "isApproved")
     private boolean isApproved;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "tpid")
+    private Integer tpid;
     @JoinColumn(name = "tournamentId", referencedColumnName = "tournamentId")
     @ManyToOne(optional = false)
     private Tournamenttb tournamentId;
     @JoinColumn(name = "playerId", referencedColumnName = "playerId")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Playermaster playerId;
 
     public Tournamentplayerslist() {
     }
 
-    
+    public Tournamentplayerslist(Integer tpid) {
+        this.tpid = tpid;
+    }
 
-    public Tournamentplayerslist(String playerId, String playerStatus, boolean isApproved) {
-       
+    public Tournamentplayerslist(Integer tpid, String playerStatus, boolean isApproved) {
+        this.tpid = tpid;
         this.playerStatus = playerStatus;
         this.isApproved = isApproved;
     }
-
-    
-
-
 
     public String getPlayerStatus() {
         return playerStatus;
@@ -86,6 +83,14 @@ public class Tournamentplayerslist implements Serializable {
 
     public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
+    }
+
+    public Integer getTpid() {
+        return tpid;
+    }
+
+    public void setTpid(Integer tpid) {
+        this.tpid = tpid;
     }
 
     public Tournamenttb getTournamentId() {
@@ -104,20 +109,29 @@ public class Tournamentplayerslist implements Serializable {
         this.playerId = playerId;
     }
 
-  
-
-    public Integer getTpid() {
-        return tpid;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (tpid != null ? tpid.hashCode() : 0);
+        return hash;
     }
 
-    public void setTpid(int tpid) {
-        this.tpid = tpid;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Tournamentplayerslist)) {
+            return false;
+        }
+        Tournamentplayerslist other = (Tournamentplayerslist) object;
+        if ((this.tpid == null && other.tpid != null) || (this.tpid != null && !this.tpid.equals(other.tpid))) {
+            return false;
+        }
+        return true;
     }
 
- 
-
-  
-
-  
+    @Override
+    public String toString() {
+        return "entities.Tournamentplayerslist[ tpid=" + tpid + " ]";
+    }
     
 }
