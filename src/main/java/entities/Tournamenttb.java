@@ -112,7 +112,7 @@ public class Tournamenttb implements Serializable {
     public void setStartingDate(Date startingDate) {
         this.startingDate = startingDate;
     }
-
+@JsonbTransient
     public List<Playermaster> getPlayermasterList() {
         return playermasterList;
     }
