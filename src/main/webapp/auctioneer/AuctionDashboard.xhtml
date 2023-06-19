@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
+
+    <h:body>
+        
+
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <!-- Sidebar Start -->
+                <!--  Sidebar End -->
+                <!--  Main wrapper -->
+                   <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          
+           <h:graphicImage library="images" name="logo3.png" alt="" width="200" height="50"></h:graphicImage>
+                                     
+          
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <h:form id="listForm">
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+              <ui:repeat value="#{auctioneercdi.auctionTeamList}" var="item">
+                 <li class="sidebar-item">
+                     <p:commandLink action="#{auctioneercdi.placeBidFromTeam(item)}" >
+                         <p:ajax event="click" listener="#{auctioneercdi.placeBidFromTeam(item)}" update="teamnamelable"/>
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                         <span class="hide-menu">#{item.teamName}</span>
+                         <span class="hide-menu">#{item.totalPurse}</span>
+                     </p:commandLink>
+            </li>
+            </ui:repeat>
+              
+        </ul>
+         
+        </nav>
+               </h:form>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+                <div class="body-wrapper">
+                    <!--  Header Start -->
+                    <header class="app-header">
+                        
+                    </header>
+                    <!--  Header End -->
+
+                    <div class="z-index-0 container-fluid d-flex flex-row justify-content-between">
+                        <div class="container-fluid d-flex flex-column justify-content-between">
+                            <div class="card bg-dark shadow rounded bg-info col-xxl-10 mt-5">
+                                <div class="card-body">
+                                    <div class="d-flex flex-row justify-content-between ">
+                                        <ul class="d-flex flex-column justify-content-">
+                                            <h3 class="text-light">Name    : jaimin bhatt</h3>
+                                            <h3 class="text-light">Batting : Right Hand#</h3>
+                                            <h3 class="text-light">Bowling : Right Arm Fast#</h3>
+                                            <h3 class="text-light">Age     : 23 #</h3>
+
+                                        </ul>
+                                        <div style="z-index: 2; position: absolute; bottom: 55%; left: 65%;"><img src="" alt="" srcset="" height="200" width="190" style="clip-path: inset(0 10% 10% 10%);"/></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card col-xxl-11 shadow bg-body rounded">
+                                <div class="card-body">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <div class="d-flex flex-row"> <div>
+                                                <h3> <h:outputLabel value="#{auctioneercdi.currentTeam.teamName}" id="teamnamelable"/> </h3>
+<!--                                            <h:graphicImage library="images" name="team1.jpg" class="card-img-top rounded-0" alt="..." height="100" width="100" style="clip-path: circle(50%);"/>-->
+                                            </div>
+
+                                            <ul class="d-flex flex-column ms-4">
+                                                <h2>Bid Amount</h2>
+                                                <h4><b>3</b> cr.</h4>
+                                                <p class="text-primary">* Bids Will Be Increased By <b>2 CR.</b> Points</p>
+                                            </ul>
+                                        </div>
+                                        <ul class="d-flex flex-column ms-4">
+                                            <h2>Bid Timer</h2>
+
+                                            <h1 class="text-center">
+                                                <h:outputText id="txt_count" value="#{auctioneercdi.number}"/>
+                                            </h1>
+
+                                            <p:poll interval="1" listener="#{auctioneercdi.decrement}" update="txt_count" autoStart="true"/>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card col-xxl-3 shadow bg-body rounded">
+                            <div class="card-body">
+                                <div class="card-body h-100 d-flex flex-column justify-content-between">
+
+
+
+                                    <div class="d-flex flex-column justify-content-between">
+                                        <p:commandButton value="Next Player" styleClass="btn  btn-outline-success mb-3" action="#{ownercdi.updateBidDetails()}" />
+                                        <p:commandButton value="Sold " styleClass="btn  ui-button-success mb-3" action="#" />
+                                        <p:commandButton value="Unsold " styleClass="btn  ui-button-danger mb-3" action="#" />
+
+
+                                      
+                                    </div>
+                                    <div>
+                                        <button class="btn w-100 btn-outline-dark">Log Out</button>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+    </h:body>
+</html>
+
