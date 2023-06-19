@@ -26,10 +26,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "teammaster")
+@Table(name = "teammaster", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Teammaster.findAll", query = "SELECT t FROM Teammaster t"),
     @NamedQuery(name = "Teammaster.findByTeamId", query = "SELECT t FROM Teammaster t WHERE t.teamId = :teamId"),
@@ -39,9 +39,9 @@ import javax.validation.constraints.Size;
 public class Teammaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Basic(optional = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "teamId")
     private Integer teamId;
     @Basic(optional = false)

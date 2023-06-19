@@ -4,6 +4,7 @@
  */
 package serverBeans;
 
+import entities.Auctiondetailtb;
 import entities.Playermaster;
 import java.util.List;
 import javax.ejb.Local;
@@ -19,4 +20,5 @@ public interface playerEjbLocal {
      public Playermaster getPlayerByID(String id);
      boolean update(Playermaster player);
      boolean delete(String id);
+      public List<Auctiondetailtb> getAuctionDetailsForPlayer(String playerId);
 }

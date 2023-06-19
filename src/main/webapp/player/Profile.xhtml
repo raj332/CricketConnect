@@ -7,15 +7,15 @@
       xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-     <f:metadata>
-         <f:event type="preRenderView" listener="#{playercdi.showPlayerbyID()}"/>
-      </f:metadata>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{playercdi.showPlayerbyID()}"/>
+    </f:metadata>
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:outputStylesheet name="css/styles.min.css" />
     <h:body>
-        
+
         <h:form>
 
             <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -35,91 +35,106 @@
                         <div class="container-fluid d-flex flex-row justify-content-between col-xl-12">
 
 
-                            <div class="col-md-12 col-lg-12 col-xxl-6">
-                                <p class="text-center"><h2 class="text-primary text-700 text-center">Player Registration</h2></p>
-                                <div class="card mb-0">
+                            <div class="col-md-12 col-lg-12 col-xxl-7 shadow rounded">
+                                <div class="card mb-0 ">
                                     <div class="card-body">
 
 
 
-                                        <div class="mb-3 row">
-                                            <div class="col-xxl-6">
-                                                <h:graphicImage value="#{playercdi.getImageDataUrl(playercdi.player.photo)}" style="height: 80px; width: 80px; clip-path:circle(50%);" />
-                                            </div>
-                                            <div class="col-xxl-6">
-                                                <p:inplace>
-                                                    <p:inputText id="playerId" value="#{playercdi.player.playerId}" title="PlayerId" required="true" requiredMessage="The PlayerId field is required." class="form-control"/>
-                                                </p:inplace>
-                                            </div>
-                                            <div class="col-xxl-6">
-                                                <p:inplace>
-                                                    <p:inputText id="name" value="#{playercdi.player.name}" title="Name" required="true" requiredMessage="The Name field is required." class="form-control"/>
-                                                </p:inplace>
-                                            </div>
-
-
-                                            <div class="col-xxl-6">
-                                                <p:inplace>
-                                                    <h:inputText id="mobileNumber" value="#{playercdi.player.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required." class="form-control"/>
-                                                </p:inplace>
-                                            </div>
+                                        <div class="col-xxl-12 d-flex flex-column justify-content-center align-items-center">
 
 
 
-                                            <div class="col-xxl-6">
-                                                <p:inplace label="batting" effectSpeed="fast" event="click">
-                                                    <h:selectOneMenu id="batting" value="#{playercdi.player.battingType}" title="batting" required="true" requiredMessage="The batting type field is required." class="form-select" >
+                                            <h:graphicImage id="image" value="#{playercdi.getImageDataUrl(playercdi.player.photo)}" style="height: 80px; width: 80px; clip-path:circle(50%);" />
+
+                                        </div>
+                                        <div class="col-xxl-12 d-flex flex-row justify-content-between align-items-center">
+                                            <div class=" col-xxl-6 d-flex flex-column justify-content-between align-items-center">
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Player ID :"/>
+                                                    <p:inputText id="playerId" value="#{playercdi.player.playerId}"
+                                                                 title="PlayerId" required="true"
+                                                                 requiredMessage="The PlayerId field is required."
+                                                                 disabled="true" />
+                                                </div>
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Name :"/>
+
+                                                    <p:inputText id="name" value="#{playercdi.player.name}" title="Name" required="true" requiredMessage="The Name field is required." disabled="#{playercdi.inputDisabled}"/>
+
+                                                </div>
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Mobile :"/>
+                                                    <p:inputText id="mobileNumber" value="#{playercdi.player.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required." disabled="#{playercdi.inputDisabled}"/>
+                                                </div>
+
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Batting :"/>
+                                                    <p:selectOneMenu id="batting" value="#{playercdi.player.battingType}" title="batting" required="true" requiredMessage="The batting type field is required." disabled="#{playercdi.inputDisabled}">
                                                         <f:selectItems value="#{playercdi.battingTypesList}" var="item" itemLabel="#{item.type}" itemValue="#{item.type}"/> 
-                                                    </h:selectOneMenu>
-                                                </p:inplace>
-                                            </div>
-                                            <div class="col-xxl-6">
-                                                <p:inplace label="BowlingType" effectSpeed="fast" event="click">
+                                                    </p:selectOneMenu>
 
-                                                    <h:selectOneMenu id="BowlingType" value="#{playercdi.player.bowlingType}" title="BowlingType" required="true" requiredMessage="The Bowling Type field is required." class="form-select">
+                                                </div>
+                                                <!--                                                <div class="col-xxl-6 mb-3">
+                                                                                                    <p:outputLabel value="Upload :"/>
+                                                                                                    <p:fileUpload id="upload" value="#{playercdi.file}" mode="simple" skinSimple="true" styleClass="mt-3 ui-button-filled block" disabled="#{playercdi.inputDisabled}" />
+                                                            
+                                                                                                </div>-->
+                                            </div>
+                                            <div class=" col-xxl-6 mb-3 d-flex flex-column justify-content-between align-items-center">
+                                                <div class="col-xxl-6 mb-3">
+
+                                                    <p:outputLabel value="Bowling :"/>
+                                                    <p:selectOneMenu id="BowlingType" value="#{playercdi.player.bowlingType}" title="BowlingType" required="true" requiredMessage="The Bowling Type field is required." disabled="#{playercdi.inputDisabled}">
                                                         <f:selectItems value="#{playercdi.bowlingTypesList}" var="item" itemLabel="#{item.type}" itemValue="#{item.type}"/> 
-                                                    </h:selectOneMenu>
-                                                </p:inplace>    
+                                                    </p:selectOneMenu>
+
+                                                </div>
+                                                <div class="col-xxl-6 mb-3">
+
+                                                    <p:outputLabel value="Position :"/>
+                                                    <p:selectOneMenu  id="battingPosition" value="#{playercdi.player.battingPosition}" title="Batting Position" required="true" requiredMessage="The Position field is required." style="width:198px" disabled="#{playercdi.inputDisabled}" >
+                                                        <f:selectItems value="#{playercdi.battingPosition}" /> 
+                                                    </p:selectOneMenu>
+
+                                                </div>
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Age :"/>
+                                                    <p:inputText id="age" value="#{playercdi.player.age}" title="Age" required="true" requiredMessage="The Age field is required." disabled="#{playercdi.inputDisabled}"/>
+
+                                                </div>
+                                                <div class="col-xxl-6 mb-3">
+                                                    <p:outputLabel value="Keeper? :"/>
+                                                    <p:selectOneRadio value="#{playercdi.player.isWicketkeeper}" id="isWicketkeeper" disabled="#{playercdi.inputDisabled}" >
+                                                        <f:selectItem itemValue="true" itemLabel="Yes" /> 
+                                                        <f:selectItem itemValue="false" itemLabel="No" />
+                                                    </p:selectOneRadio>
+
+                                                </div>
+
                                             </div>
+
+
+
+
                                         </div>
+                                        <div class="col-xxl-12 d-flex flex-row justify-content-end align-items-center">
 
-                                        <div class="col-xxl-6">
-                                            <p:inplace label="BowlingType" effectSpeed="fast" event="click">
+                                            <div class="mt-5 ">
+                                                <p:outputLabel value=""/>
+                                                <p:commandButton action="#{playercdi.toggle(playercdi.player)}"
+                                                                 value="#{playercdi.btnValue}" id="availability"
+                                                                 update="image playerId name mobileNumber batting  BowlingType battingPosition age isWicketkeeper availability"/>
+                                            </div>
 
-                                                <h:selectOneMenu id="battingPosition" value="#{playercdi.player.battingPosition}" title="Batting Position" required="true" requiredMessage="The Position field is required." class="form-select" >
-                                                    <f:selectItems value="#{playercdi.battingPosition}"/> 
-                                                </h:selectOneMenu>
-                                            </p:inplace>       
+
+
                                         </div>
-                                        <div class="col-xxl-6">
-                                            <p:inplace>
-                                                <p:inputText id="age" value="#{playercdi.player.age}" title="Age" required="true" requiredMessage="The Age field is required." class="form-control"/>
-                                            </p:inplace>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xxl-6">
-                                        <p:inplace label="isWicketkeeper" effectSpeed="fast" event="click">
-
-                                            <h:selectOneRadio value="#{playercdi.player.isWicketkeeper}" id="isWicketkeeper" class="form-radio w-50">
-                                                <f:selectItem itemValue="true" itemLabel="Yes" class="w-25" /> 
-                                                <f:selectItem itemValue="false" itemLabel="No" />
-                                            </h:selectOneRadio>
-                                        </p:inplace>
-                                    </div>
-                                    <div class="col-xxl-6">
-                                        <p:inplace label="Show" effect="slide">
-                                            <p:fileUpload class ="" value="#{playercdi.file}" mode="simple" skinSimple="true" styleClass="mt-1 ui-button-filled block" />
-                                        </p:inplace>
                                     </div>
 
                                 </div>
-                                <div class="col-xxl-6">
-                                    <p:commandButton action="#{playercdi.insertPlayer()}" value="Register"  disabled="#{playercdi.msg}" id="availability" />
 
-                                </div>
                             </div>
-
 
                         </div>
                     </div>
@@ -127,10 +142,10 @@
 
             </div>
 
-            
 
-           
-            
+
+
+
         </h:form>
     </h:body>
 </html>

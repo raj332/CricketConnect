@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .card-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        </style>
+    </h:head>
+    <h:outputStylesheet name="css/styles.min.css" />
+    <h:body>
+
+
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <mycc:sidebar items="#{playercdi.sidebarItems}" />
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <!--  Header Start -->
+                <header class="app-header">
+                    <mycc:navbar/>
+                </header>
+                <!--  Header End -->
+
+
+                <div class="container-fluid d-flex flex-wrap justify-content-start form-label">
+                    <h:form id="tournamentForm">
+                        <p:outputLabel value="Enter Tournament ID " for="tournamentId" styleClass="form-label"/>
+                        <div class="my-2">
+                            <p:inputNumber value="#{playercdi.searchvalue}" id="tournamentId"/>
+                            <p:commandButton value="Search" action="#{playercdi.searchMYTournamnet()}"
+                                             update="tournaments" process="@form" styleClass="mx-2" />
+                        </div>
+                        <h:panelGroup id="tournaments" layout="block" styleClass="card card-container mt-5">
+                            <ui:repeat value="#{playercdi.searchedTournament}" var="item">
+                            <h:panelGroup rendered="#{playercdi.searchvalue ne 0}">
+                                <div class="position-relative d-flex flex-row justify-content-center">
+                                    <h:graphicImage library="images" name="team4.png" alt="" width="250" height="170" />
+                                </div>
+                                <div class="card-body pt-3 p-4">
+                                    <h3 class="card-title mt-2 text-bold text-center">#{item.tournamentName}</h3>
+                                </div>
+                                <div class="d-flex justify-content-around mb-2">
+                                    <h:commandButton id="btn" class="btn btn-info"
+                                                     action="#{playercdi.inroll(item.tournamentId)}"
+                                                     disabled="#{playercdi.msg eq true}"
+                                                     value="#{playercdi.msg eq true ? 'Already Participated' : 'Participate'}" />
+                                </div>
+</h:panelGroup>
+                            </ui:repeat>
+
+                        </h:panelGroup>
+                    </h:form>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

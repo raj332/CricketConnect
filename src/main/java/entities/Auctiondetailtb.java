@@ -6,6 +6,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,10 +26,10 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "auctiondetailtb")
+@Table(name = "auctiondetailtb", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Auctiondetailtb.findAll", query = "SELECT a FROM Auctiondetailtb a"),
     @NamedQuery(name = "Auctiondetailtb.findByAuctionId", query = "SELECT a FROM Auctiondetailtb a WHERE a.auctionId = :auctionId"),
@@ -37,13 +39,17 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Auctiondetailtb.findByEachPlayerBasePrice", query = "SELECT a FROM Auctiondetailtb a WHERE a.eachPlayerBasePrice = :eachPlayerBasePrice"),
     @NamedQuery(name = "Auctiondetailtb.findByBidIncrementAmount", query = "SELECT a FROM Auctiondetailtb a WHERE a.bidIncrementAmount = :bidIncrementAmount"),
     @NamedQuery(name = "Auctiondetailtb.findByTotalPurse", query = "SELECT a FROM Auctiondetailtb a WHERE a.totalPurse = :totalPurse"),
+    @NamedQuery(name = "Auctiondetailtb.findByTournamentId", query = "SELECT a FROM Auctiondetailtb a WHERE a.tornamentId = :tournamentId"),
     @NamedQuery(name = "Auctiondetailtb.findByMinPlayer", query = "SELECT a FROM Auctiondetailtb a WHERE a.minPlayer = :minPlayer")})
+
+
+
 public class Auctiondetailtb implements Serializable {
 
     private static final long serialVersionUID = 1L;
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Basic(optional = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "auctionId")
     private Integer auctionId;
     @Basic(optional = false)
@@ -67,17 +73,20 @@ public class Auctiondetailtb implements Serializable {
     @NotNull
     @Column(name = "minPlayer")
     private int minPlayer;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "status")
+    private String status;
+    @ManyToMany(mappedBy = "auctiondetailtbList")
+    private List<Playermaster> playermasterList;
     @JoinColumn(name = "auctioneerId", referencedColumnName = "auctioneerId")
     @ManyToOne(optional = false)
     private Auctioneermaster auctioneerId;
     @JoinColumn(name = "tornamentId", referencedColumnName = "tournamentId")
     @ManyToOne(optional = false)
     private Tournamenttb tornamentId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "status")
-    private String status;
+
     public Auctiondetailtb() {
     }
 
@@ -85,21 +94,13 @@ public class Auctiondetailtb implements Serializable {
         this.auctionId = auctionId;
     }
 
-    public Auctiondetailtb(Integer auctionId, Date date, long eachPlayerBasePrice, int bidIncrementAmount, long totalPurse, int minPlayer,String status) {
+    public Auctiondetailtb(Integer auctionId, Date date, long eachPlayerBasePrice, int bidIncrementAmount, long totalPurse, int minPlayer, String status) {
         this.auctionId = auctionId;
         this.date = date;
-        this.status =status;
         this.eachPlayerBasePrice = eachPlayerBasePrice;
         this.bidIncrementAmount = bidIncrementAmount;
         this.totalPurse = totalPurse;
         this.minPlayer = minPlayer;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -151,7 +152,22 @@ public class Auctiondetailtb implements Serializable {
         this.minPlayer = minPlayer;
     }
 
-    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Playermaster> getPlayermasterList() {
+        return playermasterList;
+    }
+
+    public void setPlayermasterList(List<Playermaster> playermasterList) {
+        this.playermasterList = playermasterList;
+    }
+
     public Auctioneermaster getAuctioneerId() {
         return auctioneerId;
     }

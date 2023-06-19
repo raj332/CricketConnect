@@ -1,13 +1,20 @@
-
 package serverBeans;
 
+import entities.Auctiondetailtb;
+import entities.Auctioneermaster;
 import entities.Playermaster;
 import entities.Projectgroups;
 import entities.Projectusers;
+import entities.Tournamenttb;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
@@ -16,63 +23,73 @@ import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
  */
 @Stateless
 public class playerEJB implements playerEjbLocal {
-  @PersistenceContext(unitName = "jpapu")
+
+    @PersistenceContext(unitName = "jpapu")
     EntityManager em;
+
     @Override
     public boolean register(Playermaster player) {
-    try{
-        String[] arrOfStr = player.getPlayerId().split(":");
-        player.setPlayerId(arrOfStr[0]);
-        
-        em.persist(player);
-        
-        Projectusers u1= new Projectusers();
-         Pbkdf2PasswordHashImpl pbk = new Pbkdf2PasswordHashImpl();
-         String hash = pbk.generate(arrOfStr[1].toCharArray());
-        u1.setPassword(hash);
-        u1.setUserId(player.getPlayerId());
-        em.persist(u1);
-       
-        Projectgroups g1= new Projectgroups();
-        g1.setGroupName("player");
-        g1.setUserId(u1);
-        em.persist(g1);
-        return true;
-    }catch(Exception ex){
-        return false;
-    }
+        try {
+            String[] arrOfStr = player.getPlayerId().split(":");
+            player.setPlayerId(arrOfStr[0]);
+
+            em.persist(player);
+
+            Projectusers u1 = new Projectusers();
+            Pbkdf2PasswordHashImpl pbk = new Pbkdf2PasswordHashImpl();
+            String hash = pbk.generate(arrOfStr[1].toCharArray());
+            u1.setPassword(hash);
+            u1.setUserId(player.getPlayerId());
+            em.persist(u1);
+
+            Projectgroups g1 = new Projectgroups();
+            g1.setGroupName("player");
+            g1.setUserId(u1);
+            em.persist(g1);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     @Override
     public List<Playermaster> getAllPlayers() {
-       return em.createNamedQuery("Playermaster.findAll").getResultList();
+        return em.createNamedQuery("Playermaster.findAll").getResultList();
     }
 
     @Override
     public boolean update(Playermaster player) {
-        try{
+        try {
             em.merge(player);
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
-        
+
     }
 
     @Override
     public boolean delete(String id) {
-        try{
+        try {
             Playermaster player = getPlayerByID(id);
             em.remove(player);
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
+
     @Override
-    public Playermaster getPlayerByID(String id){
-      return  em.find(Playermaster.class, id);
+    public Playermaster getPlayerByID(String id) {
+        return em.find(Playermaster.class, id);
     }
 
-   
+    @Override
+    public List<Auctiondetailtb> getAuctionDetailsForPlayer(String playerId) {
+
+        Playermaster player = new Playermaster();
+        player = em.find(Playermaster.class, playerId);
+        return player.getAuctiondetailtbList();
+    }
+
 }

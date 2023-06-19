@@ -6,6 +6,7 @@ package cdiBeans;
 
 import Authentication.KeepRecord;
 import composite.Sidebar;
+import entities.Auctiondetailtb;
 import entities.Battingtypemaster;
 import entities.Bowlingtypemaster;
 import entities.Playermaster;
@@ -26,10 +27,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.file.UploadedFile;
 import restClient.playerClient;
 import restClient.tournamentClient;
 import serverBeans.playerEjbLocal;
+import serverBeans.tournamentEJBLocal;
 import serverBeans.tournamentPlayersEJBLocal;
 
 /**
@@ -57,6 +60,9 @@ public class playerCdi implements Serializable{
     List<Tournamenttb> tournamentList; 
     @EJB tournamentPlayersEJBLocal tplayerEjb ;
     @EJB playerEjbLocal playerejb ;
+     @EJB tournamentEJBLocal tournamnetejb;
+    
+    List<Auctiondetailtb> auctionList ;
     public List<Tournamenttb> getTournamnetList() {
         return tournamentList;
     }
@@ -73,6 +79,7 @@ public class playerCdi implements Serializable{
     playerClient pclient;
     tournamentClient tclient;
     String currentPassword;
+    
 
     
     
@@ -164,15 +171,24 @@ public class playerCdi implements Serializable{
         battingPosition.add("Top-Order");
         battingPosition.add("Middel-Order");
         battingPosition.add("Finisher");
-             
-        rs = tclient.getTournamentsByPlayerID(Response.class, KeepRecord.getUserid());
-        tournamentList = rs.readEntity(gtournametlist);
-     
-        sidebarItems.add(new Sidebar("fsfs","View Tournamnets","home.jsf"));
-        sidebarItems.add(new Sidebar("fsfs","Live Auction","home.jsf"));
-       sidebarItems.add(new Sidebar("fsfs","My Profile","Profile.jsf"));
+        auctionList = new ArrayList<>();     
+        getTournamnetForPlayer();
+       
+        sidebarItems.add(new Sidebar("fsfs","Dashboard","home.jsf"));
+        sidebarItems.add(new Sidebar("fsfs","My Auctions","MyAuction.jsf"));
+        sidebarItems.add(new Sidebar("fsfs","My Profile","Profile.jsf"));
+         sidebarItems.add(new Sidebar("fsfs","Search","searchTournament.jsf"));
+         
+         //18/6 night
+         
+         searchedTournament = new Tournamenttb();
+        
+        
     }
-    
+    public void getTournamnetForPlayer(){
+         rs = tclient.getTournamentsByPlayerID(Response.class, KeepRecord.getUserid());
+        tournamentList = rs.readEntity(gtournametlist);
+    }
     //convert image from byte[] to string to display image comming  from database 
     public String getImageDataUrl(byte[] imageData) {
         return "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(imageData);
@@ -202,19 +218,23 @@ public class playerCdi implements Serializable{
         }
     }
     public String inroll(int i){
+        System.out.println("Tournamentid: "+i);
         Tournamentplayerslist t = new Tournamentplayerslist();
-        
         t.setPlayerStatus("fresh");
         Playermaster p1= new Playermaster();
         p1.setPlayerId(KeepRecord.getUserid());
         Tournamenttb trn =  new Tournamenttb();
         trn.setTournamentId(i);
+        
         t.setTournamentId(trn);
     
         t.setIsApproved(true);
         t.setPlayerId(p1);
-        tplayerEjb.enrollInAuction(t);
-        return "home.jsf";
+        if(tplayerEjb.enrollInAuction(t)){
+            getTournamnetForPlayer();
+        }
+        msg = true;
+        return "MyAuction.jsf";
        
     }
     public String insertPlayer() throws IOException{
@@ -222,6 +242,7 @@ public class playerCdi implements Serializable{
         player.setPlayerId(player.getPlayerId().concat(":"+currentPassword));
         pclient.addPlayer(player);
         player = new Playermaster();
+        this.currentPassword ="";
         System.gc();
         return "PlayerList.jsf";
     }
@@ -244,8 +265,88 @@ public class playerCdi implements Serializable{
     }
     
     public String showPlayerbyID(){
-        player = pclient.getPlayer(Playermaster.class, KeepRecord.getUserid());
+//        player = pclient.getPlayer(Playermaster.class, KeepRecord.getUserid());
+        player=playerejb.getPlayerByID(KeepRecord.getUserid());
         return "../player/Profile.jsf";
+    }
+    
+    private boolean inputDisabled = true;
+    private String btnValue = "Update Details";
+ 
+
+    // Constructor and other methods...
+
+    public void toggle(Playermaster player) throws IOException {
+        inputDisabled = !inputDisabled;
+        if(btnValue.equals("submit")){
+           //  upload();
+            Update(player);
+        }
+        btnValue = inputDisabled ? "Update Details" : "submit";
+        
+        
+    }
+
+    public boolean isInputDisabled() {
+        return inputDisabled;
+    }
+
+    public void setInputDisabled(boolean inputDisabled) {
+        this.inputDisabled = inputDisabled;
+    }
+
+   
+
+    public String getBtnValue() {
+        return btnValue;
+    }
+    public String Update(Playermaster player) throws IOException{
+       
+        playerejb.update(player);
+        return showPlayerbyID();
+    }
+    public List<Auctiondetailtb> showAuctionsByplayer(){
+        return playerejb.getAuctionDetailsForPlayer(KeepRecord.getUserid());
+    }
+
+    public List<Auctiondetailtb> getAuctionList() {
+        auctionList = showAuctionsByplayer();
+        for(Auctiondetailtb ad : auctionList ){
+            System.out.println("Tournament name: " + ad.getTornamentId().getTournamentName());
+        }
+        return auctionList;
+    }
+
+    public void setAuctionList(List<Auctiondetailtb> auctionList) {
+        this.auctionList = auctionList;
+    }
+    int searchvalue;
+
+    public int getSearchvalue() {
+        return searchvalue;
+    }
+
+    public void setSearchvalue(int searchvalue) {
+        this.searchvalue = searchvalue;
+    }
+    
+    Tournamenttb searchedTournament;
+
+    public Tournamenttb getSearchedTournament() {
+        return searchedTournament;
+    }
+
+    public void setSearchedTournament(Tournamenttb searchedTournament) {
+        this.searchedTournament = searchedTournament;
+    }
+    public Tournamenttb searchMYTournamnet(){
+     
+        searchedTournament = tournamnetejb.getTournamentById(searchvalue);
+        Playermaster player = playerejb.getPlayerByID(KeepRecord.getUserid());
+        msg = searchedTournament.getPlayermasterList().contains(player);
+        return searchedTournament;
+       
+     
     }
  
 }

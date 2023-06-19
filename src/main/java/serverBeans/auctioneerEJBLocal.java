@@ -4,6 +4,7 @@
  */
 package serverBeans;
 
+import entities.Auctiondetailtb;
 import entities.Auctioneermaster;
 import java.util.List;
 import javax.ejb.Local;
@@ -18,5 +19,5 @@ public interface auctioneerEJBLocal {
       boolean updateProfile(Auctioneermaster auctioneer);
       Auctioneermaster getAuctioneer(String auctioneerId);
      public List<Auctioneermaster> getAuctioneerList(String organizerId) ;
-
+public List<Auctiondetailtb> getAuctionsByAuctioneer(String id);
 }

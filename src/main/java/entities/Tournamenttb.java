@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,15 +29,17 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author praj4
+ * @author Bhatt Jaimin
  */
 @Entity
-@Table(name = "tournamenttb")
+@Table(name = "tournamenttb", catalog = "auctiondb", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Tournamenttb.findAll", query = "SELECT t FROM Tournamenttb t"),
     @NamedQuery(name = "Tournamenttb.findByTournamentId", query = "SELECT t FROM Tournamenttb t WHERE t.tournamentId = :tournamentId"),
     @NamedQuery(name = "Tournamenttb.findByOrganizerId", query = "SELECT t FROM Tournamenttb t WHERE t.organizerId = :organizerid"),
     @NamedQuery(name = "Tournamenttb.findByTournamentName", query = "SELECT t FROM Tournamenttb t WHERE t.tournamentName = :tournamentName"),
+  @NamedQuery(name = "Tournamenttb.findByPlayerId", query = "SELECT t FROM Tournamenttb t WHERE t.tournamentId = :tournamentId"),
+  
     @NamedQuery(name = "Tournamenttb.findByStartingDate", query = "SELECT t FROM Tournamenttb t WHERE t.startingDate = :startingDate")})
 public class Tournamenttb implements Serializable {
 
@@ -56,6 +59,8 @@ public class Tournamenttb implements Serializable {
     @Column(name = "startingDate")
     @Temporal(TemporalType.DATE)
     private Date startingDate;
+    @ManyToMany(mappedBy = "tournamenttbList")
+    private List<Playermaster> playermasterList;
     @JoinColumn(name = "organizerId", referencedColumnName = "organizerId")
     @ManyToOne(optional = false)
     private Organizermaster organizerId;
@@ -103,6 +108,14 @@ public class Tournamenttb implements Serializable {
 
     public void setStartingDate(Date startingDate) {
         this.startingDate = startingDate;
+    }
+
+    public List<Playermaster> getPlayermasterList() {
+        return playermasterList;
+    }
+
+    public void setPlayermasterList(List<Playermaster> playermasterList) {
+        this.playermasterList = playermasterList;
     }
 
     public Organizermaster getOrganizerId() {
