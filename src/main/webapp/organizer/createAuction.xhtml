@@ -9,7 +9,7 @@
         <title>Title</title>
     </h:head>
     <h:outputStylesheet name="css/styles.min.css" />
-     <h:outputStylesheet name="primeflex/primeflex.css"/>
+    <h:outputStylesheet name="primeflex/primeflex.css"/>
     <h:body>
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
              data-sidebar-position="fixed" data-header-position="fixed">
@@ -17,99 +17,99 @@
             <!--  Main wrapper -->
             <div class="body-wrapper">
                 <!--  Header Start -->
-                <header class="app-header">
+                <header >
                     <mycc:navbar/>
                 </header>
                 <!--  Header End -->
                 <div class="container-fluid">
                     <!--  Row 1 -->
                     <div class="row">
-                         <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Add Auction Details</h3>
-                             
+                        <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Add Auction Details</h3>
+
                         <h:form>
-                           
-                             
-                            
+
+
+
                             <div class="mt-2 w-100 card shadow-2 rounded grid ui-fluid d-flex flex-row justify-content-center align-items-center">
-                               
-                                
+
+
                                 <div class="col-6 md:col-6">
-                                <div class=" col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-dollar"></i></div>
-                                        <p:inputNumber id="Baseprice" placeholder="Baseprice" value="#{organizercdi.auctiondetail.eachPlayerBasePrice}" required="true" label="Baseprice"/>
-                                  
+                                    <div class=" col-12 md:col-8">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-dollar"></i></div>
+                                            <p:inputNumber id="Baseprice" placeholder="Baseprice" value="#{organizercdi.auctiondetail.eachPlayerBasePrice}" required="true" label="Baseprice"/>
+
+                                        </div>
+                                        <p:message for="Baseprice" />
                                     </div>
-                                    <p:message for="Baseprice" />
-                                </div>
-                                <div class=" col-12 md:col-8 ">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
-                                        <p:datePicker id="date" placeholder="Date"  pattern="dd/MM/yyyy" required="true" value="#{organizercdi.auctiondetail.date}" requiredMessage=" Date field is required." />
-                                        
+                                    <div class=" col-12 md:col-8 ">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
+                                            <p:datePicker id="date" placeholder="Date"  pattern="dd/MM/yyyy" required="true" value="#{organizercdi.auctiondetail.date}" requiredMessage=" Date field is required." />
+
+                                        </div>
+                                        <p:message for="date" />
                                     </div>
-                                    <p:message for="date" />
-                                </div>
-                                <div class=" col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-arrow-up"></i></div>
-                                        <p:inputNumber id="IncrementAmount" placeholder="Increment Amount" value="#{organizercdi.auctiondetail.bidIncrementAmount}" required="true" label="IncrementAmount">
-                                        </p:inputNumber>
-                                        
+                                    <div class=" col-12 md:col-8">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-arrow-up"></i></div>
+                                            <p:inputNumber id="IncrementAmount" placeholder="Increment Amount" value="#{organizercdi.auctiondetail.bidIncrementAmount}" required="true" label="IncrementAmount">
+                                            </p:inputNumber>
+
+                                        </div>
+                                        <p:message for="IncrementAmount" />
                                     </div>
-                                    <p:message for="IncrementAmount" />
-                                </div>
-                                <div class="col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-wallet"></i></div>
-                                        <p:inputNumber id="TotalPurse" placeholder="Total Purse" required="true" value="#{organizercdi.auctiondetail.totalPurse}" label="TotalPurse">
-                                        </p:inputNumber>
-                                        
+                                    <div class="col-12 md:col-8">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-wallet"></i></div>
+                                            <p:inputNumber id="TotalPurse" placeholder="Total Purse" required="true" value="#{organizercdi.auctiondetail.totalPurse}" label="TotalPurse">
+                                            </p:inputNumber>
+
+                                        </div>
+                                        <p:message for="TotalPurse" />
                                     </div>
-                                    <p:message for="TotalPurse" />
-                                </div>
                                 </div>
                                 <div class=" col-6 md:col-6 mb-4">
                                     <div class=" col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-users"></i></div>
-                                        <p:inputNumber id="minplayers" placeholder="Squad Size" value="#{organizercdi.auctiondetail.minPlayer}" required="true" label="minplayers"/>
-                                        
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-users"></i></div>
+                                            <p:inputNumber id="minplayers" placeholder="Squad Size" value="#{organizercdi.auctiondetail.minPlayer}" required="true" label="minplayers"/>
+
+                                        </div>
+                                        <p:message for="minplayers" />
+
                                     </div>
-                                    <p:message for="minplayers" />
-                                    
-                                </div>
-                                <div class=" col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-search-plus"></i></div>
-                                        <p:selectOneMenu id="Tournamnet" value="#{organizercdi.selectedtournamentid}" placeholder="Select Tournament">
-                                            <f:selectItems value="#{organizercdi.fetchAllTournamentsByOrganizerid()}" var="item" itemLabel="#{item.tournamentName}" itemValue="#{item.tournamentId}" />
-                                     
-                                    </p:selectOneMenu>
+                                    <div class=" col-12 md:col-8">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-search-plus"></i></div>
+                                            <p:selectOneMenu id="Tournamnet" value="#{organizercdi.selectedtournamentid}" rendered="#{organizercdi.tournamnetlistForAuction.size()>0}" placeholder="Select Tournament">
+                                                <f:selectItems value="#{organizercdi.tournamnetlistForAuction}" var="item" itemLabel="#{item.tournamentName}" itemValue="#{item.tournamentId}" />
+
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <p:message for="Tournamnet" />
                                     </div>
-                                    <p:message for="Tournamnet" />
-                                </div>
-                                <div class=" col-12 md:col-8">
-                                    <div class="ui-inputgroup">
-                                        <div class="ui-inputgroup-addon"><i class="pi pi-user-edit"></i></div>
-                                        <p:selectOneMenu id="Auctioneer" value="#{organizercdi.selectedAuctioneer}" placeholder="Select Auctioneer" >
-                                            <f:selectItems value="#{organizercdi.showAuctioneerList()}" var="item"  itemLabel="#{item.name}" itemValue="#{item.auctioneerId}"/>
-                                       
-                                    </p:selectOneMenu>
+                                    <div class=" col-12 md:col-8">
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-user-edit"></i></div>
+                                            <p:selectOneMenu id="Auctioneer" value="#{organizercdi.selectedAuctioneer}" placeholder="Select Auctioneer" >
+                                                <f:selectItems value="#{organizercdi.showAuctioneerList()}" var="item"  itemLabel="#{item.name}" itemValue="#{item.auctioneerId}"/>
+
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <p:message for="Auctioneer" />
                                     </div>
-                                    <p:message for="Auctioneer" />
+
+                                    <div class=" col-12 md:col-4">
+                                        <p:commandButton value="Create" update="messages" action="#{organizercdi.createAuction()}" actionListener="#{organizercdi.showInfo}"  />
+
+                                    </div>
                                 </div>
 
-                                <div class=" col-12 md:col-4">
-                                    <p:commandButton value="Create" update="messages" action="#{organizercdi.createAuction()}" actionListener="#{organizercdi.showInfo}"  />
-                                    
-                                </div>
-                                </div>
-                                
 
 
-  <p:growl id="messages" showDetail="true" />
-                                </div>
+                                <p:growl id="messages" showDetail="true" />
+                            </div>
                         </h:form>
 
                     </div>
@@ -117,6 +117,9 @@
                 </div>
             </div>
         </div>
+        <f:metadata>
+            <f:event listener="#{organizercdi.fetchTournamentsForAuctionCreation}" type="preRenderView" />
+        </f:metadata>
     </h:body>
 </html>
 

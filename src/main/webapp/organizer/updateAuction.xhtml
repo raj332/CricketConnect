@@ -24,7 +24,7 @@
                 <div class="container-fluid">
                     <!--  Row 1 -->
                     <div class="row">
-                        <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Add Auction Details</h3>
+                        <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">Update Auction Details</h3>
 
                         <h:form>
 
@@ -82,8 +82,8 @@
                                     <div class=" col-12 md:col-8">
                                         <div class="ui-inputgroup">
                                             <div class="ui-inputgroup-addon"><i class="pi pi-search-plus"></i></div>
-                                            <p:selectOneMenu id="Tournamnet" value="#{organizercdi.selectedtournamentid}" rendered="#{organizercdi.tournamnetlistForAuction.size()>0}" placeholder="Select Tournament">
-                                                <f:selectItems value="#{organizercdi.tournamnetlistForAuction}" var="item" itemLabel="#{item.tournamentName}" itemValue="#{item.tournamentId}" />
+                                            <p:selectOneMenu id="Tournamnet" value="#{organizercdi.selectedtournamentid}" placeholder="Select Tournament">
+                                                <f:selectItems value="#{organizercdi.fetchAllTournamentsByOrganizerid()}" var="item" itemLabel="#{item.tournamentName}" itemValue="#{item.tournamentId}" />
 
                                             </p:selectOneMenu>
                                         </div>
@@ -100,8 +100,9 @@
                                         <p:message for="Auctioneer" />
                                     </div>
 
-                                    <div class=" col-12 md:col-4">
-                                        <p:commandButton value="Create" update="messages" action="#{organizercdi.createAuction()}" actionListener="#{organizercdi.showInfo}"  />
+                                    <div class=" col-12 md:col-8 d-flex justify-content-between ">
+                                        <p:commandButton value="Save" update="messages" class="mx-2"  action="#{organizercdi.updateAuction()}" actionListener="#{organizercdi.showInfo}"  />
+                                        <p:commandButton value="Cancle" update="messages" class="mx-2"  action="home.jsf" actionListener="#{organizercdi.showInfo}"  />
 
                                     </div>
                                 </div>
@@ -117,9 +118,6 @@
                 </div>
             </div>
         </div>
-        <f:metadata>
-            <f:event listener="#{organizercdi.fetchTournamentsForAuctionCreation}" type="preRenderView" />
-        </f:metadata>
     </h:body>
 </html>
 

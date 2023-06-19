@@ -19,7 +19,7 @@
             <!--  Main wrapper -->
             <div class="body-wrapper">
                 <!--  Header Start -->
-                <header class="app-header">
+                <header >
                     <mycc:navbar/>
                 </header>
                 <!--  Header End -->
@@ -106,6 +106,8 @@
             </div>
         </div>
 
-
+<f:metadata>
+    <f:event listener="#{organizercdi.onPageLoad}" type="preRenderView" />
+</f:metadata>
     </h:body>
 </html>

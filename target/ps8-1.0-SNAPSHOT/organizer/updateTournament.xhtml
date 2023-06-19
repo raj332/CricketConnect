@@ -13,18 +13,18 @@
     <h:outputStylesheet name="css/styles.min.css" />
     <h:outputStylesheet name="primeflex/primeflex.css"/>
     <h:body>
-         <h:form>
-        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-             data-sidebar-position="fixed" data-header-position="fixed">
-            <mycc:sidebar items="#{organizercdi.sidebarItems}" />
-            <!--  Main wrapper -->
-            <div class="body-wrapper">
-                <header>
-                    <mycc:navbar/>
-                </header>
-                
-                <div class="container-fluid">  
-                   
+        <h:form>
+            <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+                 data-sidebar-position="fixed" data-header-position="fixed">
+                <mycc:sidebar items="#{organizercdi.sidebarItems}" />
+                <!--  Main wrapper -->
+                <div class="body-wrapper">
+                    <header>
+                        <mycc:navbar/>
+                    </header>
+
+                    <div class="container-fluid">  
+
                         <div class="row ">
                             <div class="page-wrapper d-flex justify-content-center align-items-center" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
                                  data-sidebar-position="fixed" data-header-position="fixed">
@@ -32,12 +32,12 @@
 
                                     <div class=" col-12 md:col-8 my-3">
 
-                                        <h3  class="text-center text-700 text-bold text-primary">New Trournament</h3>
+                                        <h3  class="text-center text-700 text-bold text-primary">Edit Tournament</h3>
                                     </div>
                                     <div class=" col-12 md:col-8 my-3">
                                         <div class="ui-inputgroup">
                                             <div class="ui-inputgroup-addon"><i class="pi pi-pencil"></i></div>
-                                            <p:inputText id="tournamentName" placeholder="tournamentName" value="#{organizercdi.tournament.tournamentName}" title="TournamentName" required="true" requiredMessage="The TournamentName field is required.">
+                                            <p:inputText id="tournamentName" placeholder="tournamentName" value="#{organizercdi.tempTournament.tournamentName}" title="TournamentName" required="true" requiredMessage="The TournamentName field is required.">
                                                 <p:keyFilter  regEx="[A-Z][a-z]" />
                                             </p:inputText>
                                         </div>
@@ -46,31 +46,24 @@
                                     <div class="col-12 md:col-8 my-3">
                                         <div class="ui-inputgroup">
                                             <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
-                                            <p:datePicker id="basic" placeholder="Date" value="#{organizercdi.tournament.startingDate}" pattern="dd/MM/yyyy" required="true" requiredMessage="The StartingDate field is required." />
+                                            <p:datePicker id="date" placeholder="Date" value="#{organizercdi.tempTournament.startingDate}" pattern="dd/MM/yyyy" required="true" requiredMessage="The StartingDate field is required." />
 
                                         </div>
                                     </div>
+                                    <div class="col-12 md:col-4 my-3 d-flex justify-content-between ">
+                                        <p:commandButton id="Save" value="Save" action="#{organizercdi.updateTournament()}" class="text-bold text-xl mx-2"/>
+                                        <p:commandButton id="Cancle" value="Cancle" action="viewTournaments.jsf" class="text-bold text-xl mx-2"/>
 
-                                    <div class="col-12 md:col-8 my-3">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-                                            <p:inputText id="organizer" placeholder="organizer" value="#{organizercdi.organizerid}" title="organizer" readonly="true" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12 md:col-4 my-3 ">
-                                        <p:commandButton id="create" value="Create" action="#{organizercdi.createTournament()}" class="text-bold text-xl"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
+                    </div>
                 </div>
             </div>
-        </div>
-<f:metadata>
-    <f:event listener="#{organizercdi.onPageLoad}" type="preRenderView" />
-</f:metadata>
-</h:form>
+
+        </h:form>
     </h:body>
 </html>
 

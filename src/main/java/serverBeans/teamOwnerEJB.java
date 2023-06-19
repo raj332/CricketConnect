@@ -70,14 +70,6 @@ try{
        t1.setName(owner.getName());
        em.persist(t1);
        
-//        Projectusers u1= new Projectusers();
-//        u1= em.find(Projectusers.class, owner.getOwnerId());
-//        
-//        u1.setPassword(arrOfStr[1]);
-//      
-//        em.persist(u1);
-      
-       
         return true;
     }catch(Exception ex){
         return false;

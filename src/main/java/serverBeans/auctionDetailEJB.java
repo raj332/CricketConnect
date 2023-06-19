@@ -56,7 +56,9 @@ public class auctionDetailEJB implements auctionDetailEJBLocal {
         try{
             Auctiondetailtb auction;
             auction = em.find(Auctiondetailtb.class, id);
+           
             return auction;
+            
        }catch(Exception ex){
         return null;   
        }
@@ -68,6 +70,7 @@ public class auctionDetailEJB implements auctionDetailEJBLocal {
             Organizermaster or1 =new Organizermaster();
             or1.setOrganizerId(oid);
             List<Auctiondetailtb>  l1=  em.createNamedQuery("Auctiondetailtb.findByOrganizerId").setParameter("organizerId", or1).getResultList();
+          
             return l1;
         }catch(Exception ex){
         return null;   

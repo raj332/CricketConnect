@@ -9,7 +9,7 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <security-constraint>
+<!--    <security-constraint>
         <display-name>Secure pages for Organizer</display-name>
         <web-resource-collection>
             <web-resource-name>Organizer's Resource</web-resource-name>
@@ -80,7 +80,7 @@
             <description>Only for teamowner</description>
             <role-name>teamowner</role-name>
         </auth-constraint>
-    </security-constraint>
+    </security-constraint>-->
     <error-page>
         <error-code>403</error-code>
         <location>/403Forbidden.html</location>
