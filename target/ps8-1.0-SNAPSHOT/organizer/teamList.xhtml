@@ -27,24 +27,24 @@
 
                     <div class="ui-inputgroup-addon"><a href="viewTournaments.jsf"><i class="pi pi-arrow-left"></i> Back To Tournamnets </a></div>
                     <div class="row mt-3">
-
+                        <h:form>
                         <ui:repeat value="#{organizercdi.teamList}" var="item" id="teams">
                             <div class="col-sm-6 col-xl-3">
                                 <div class="card overflow-hidden rounded-2">
                                     <div class="position-relative">
-                                        <a href="javascript:void(0)">
-                                            <h:graphicImage  value="#{playercdi.getImageDataUrl(item.teamLogo)}" height="200px" class="card-img-top rounded-0" alt="..."/></a>
+                                        
+                                           <h:graphicImage  value="#{playercdi.getImageDataUrl(item.teamLogo)}" height="200px" class="card-img-top rounded-0" alt="..."/>
                                     </div>
                                     <div class="card-body pt-3 p-4 d-flex flex-row justify-content-between">
                                        
                                         <h6 class="fw-semibold fs-4">Team #{item.teamName}</h6>
-                                        <p:commandButton value="View Squad"  action="../player/PlayerList.xhtml" styleClass="ui-button-info"  />
+                                        <p:commandButton value="View Squad"  action="#{organizercdi.loadplayersByTeam(item.teamId)}" styleClass="ui-button-info"  />
 
                                     </div>
                                 </div>
                             </div>
                         </ui:repeat>
-
+</h:form>
 
                     </div>
                

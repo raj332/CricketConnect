@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:mycc="http://xmlns.jcp.org/jsf/composite/components"
       xmlns:p="http://primefaces.org/ui">
 
@@ -33,13 +32,13 @@
 
 
                                 <div class="card">
-                                    <p:dataTable var="item" value="#{playercdi.displayPlayers()}">
+                                    <p:dataTable var="item" value="#{organizercdi.getPlayersByTeam()}">
 
                                         <p:column headerText="name">
-                                            <h:outputText value="#{item.name}" />
+                                            <h:outputText value="#{item.playermaster.name}" />
                                         </p:column>
                                         <p:column headerText="Number">
-                                            <h:outputText value="#{item.mobileNumber}" />
+                                            <h:outputText value="#{item.playermaster.mobileNumber}" />
                                         </p:column>
 
 
@@ -49,28 +48,28 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Photo"/>
                                             </f:facet>
-                                            <h:graphicImage value="#{playercdi.getImageDataUrl(item.photo)}" style="height: 80px; width: 80px;"/>
+                                            <h:graphicImage value="#{playercdi.getImageDataUrl(item.playermaster.photo)}" style="height: 80px; width: 80px;"/>
 
 
                                         </p:column>
                                         <p:column headerText="Bowling">
-                                            <h:outputText value="#{item.bowlingType}" />
+                                            <h:outputText value="#{item.playermaster.bowlingType}" />
                                         </p:column>
 
                                         <p:column headerText="Batting">
-                                            <h:outputText value="#{item.battingType}" />
+                                            <h:outputText value="#{item.playermaster.battingType}" />
                                         </p:column>
 
                                         <p:column headerText="Position">
-                                            <h:outputText value="#{item.battingPosition}" />
-                                        </p:column>
-                                        <p:column headerText="age">
-                                            <h:outputText value="#{item.age}" />
-                                        </p:column>
-                                        <p:column headerText="keeper">
-                                            <h:outputText value="#{item.isWicketkeeper}" />
+                                            <h:outputText value="#{item.playermaster.battingPosition}" />
                                         </p:column>
 
+                                        <p:column headerText="keeper">
+                                            <h:outputText value="#{item.playermaster.isWicketkeeper}" />
+                                        </p:column>
+                                        <p:column headerText="points">
+                                            <h:outputText value="#{item.soldAmount}" />
+                                        </p:column>
                                         <p:column headerText="Delete"  >
                                             <div class="d-flex flex-column justify-content-between">
                                                 <h:commandButton class=" btn btn-sm btn btn-primary" value="Edit" action="#{playercdi.loadupdate(item)}"/>                  

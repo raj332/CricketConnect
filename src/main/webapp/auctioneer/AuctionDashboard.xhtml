@@ -34,17 +34,14 @@
                     </div>
                     <!-- Sidebar navigation-->
                     <h:form id="listForm">
-                        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                        <nav class=" my-4 sidebar-nav scroll-sidebar" data-simplebar="">
                             <ul id="sidebarnav">
                                 <ui:repeat value="#{auctioneercdi.auctionTeamList}" var="item">
                                     <li class="sidebar-item">
-                                        <p:commandLink action="#{auctioneercdi.placeBidFromTeam(item)}" styleClass="btn  btn-outline-warning mb-3" update="playerscreen screenForm">
+                                        <p:commandLink action="#{auctioneercdi.placeBidFromTeam(item)}" styleClass="btn btn-primary mb-3 w-100 " update="playerscreen screenForm">
 
-                                            <span>
-                                                <i class="ti ti-layout-dashboard"></i>
-                                            </span>
-                                            <span class="hide-menu">#{item.teamName}</span>
-                                            <span class="hide-menu">#{item.totalPurse}</span>
+                                            <h:outputLabel class="hide-menu" styleClass="text-white" >#{item.teamName}</h:outputLabel><br/>
+                                            <h:outputLabel class="hide-menu" styleClass="text-primary-50">Remaining : #{item.totalPurse}</h:outputLabel>
                                         </p:commandLink>
                                     </li>
                                 </ui:repeat>
@@ -64,10 +61,10 @@
                 </header>
                 <!--  Header End -->
 
-                <div class="z-index-0 container-fluid d-flex flex-row justify-content-between">
-                    <div class="container-fluid d-flex flex-column justify-content-between">
+                <div class="z-index-0 container-fluid border-0 w-100 d-flex flex-row justify-content-between">
+                    <div class="container-fluid px-3 w-100 border-0  d-flex flex-column justify-content-between">
                         <p:panel id="playerscreen">
-                            <div class="card bg-dark shadow rounded bg-info col-xxl-10 mt-5">
+                            <div class="card bg-dark w-100 shadow rounded bg-info col-xxl-10 mt-5">
                                 <div class="card-body">
                                     <div class="d-flex flex-row justify-content-between ">
                                         <ul class="d-flex flex-column justify-content-">
@@ -75,34 +72,35 @@
                                             <h3 class="text-light">Batting : #{auctioneercdi.currentPlayer.battingType}</h3>
                                             <h3 class="text-light">Bowling : #{auctioneercdi.currentPlayer.bowlingType}</h3>
                                             <h3 class="text-light">Age     : #{auctioneercdi.currentPlayer.age}</h3>
+                                            <h3 class="text-light">WicketKeeper     : <h:outputText value="yes" rendered="#{auctioneercdi.currentPlayer.isWicketkeeper}" /><h:outputText value="No" rendered="#{!auctioneercdi.currentPlayer.isWicketkeeper}" /></h3>
 
                                         </ul>
-                                        <div style="z-index: 2; position: absolute; bottom: 55%; left: 65%;">
-                                            <h:graphicImage  value="#{auctioneercdi.getImageDataUrl(auctioneercdi.currentPlayer.photo)}" height="200px" class="card-img-top rounded-0" alt="..."/>
+                                        <div style="z-index: 2; ">
+                                            <h:graphicImage  value="#{auctioneercdi.getImageDataUrl(auctioneercdi.currentPlayer.photo)}" height="200px" class="card-img-top rounded-2" alt="..."/>
                                         </div>
                                     </div>
 
                                     </div>
                                 </div>
 
-                                <div class="card col-xxl-11 shadow bg-body rounded">
+                                <div class="card w-100 col-xxl-11 shadow bg-body rounded">
                                     <div class="card-body">
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div class="d-flex flex-row"> 
+                                            <div class="d-flex flex-row justify-content-between align-items-center "> 
                                                 <div>
-                                                    <h3> <h:outputLabel value="#{auctioneercdi.currentTeam.teamName}" id="teamnamelable"/> </h3>
+                                                    <h1> <h:outputLabel class="text-info" value="#{auctioneercdi.currentTeam.teamName}" id="teamnamelable"/> </h1>
                                                 </div>
 
-                                                <ul class="d-flex flex-column ms-4">
-                                                    <h2>Bid Amount</h2>
-                                                    <h4><b>#{auctioneercdi.currentBidAmount}</b></h4>
-                                                    <p class="text-primary">* Bids Will Be Increased By <b> #{auctioneercdi.incrementAmount}</b> points</p>
+                                                <ul class="d-flex flex-column ms-4 align-items-center">
+                                                    <h2>Bid Amount : <b>#{auctioneercdi.currentBidAmount}</b></h2>
+                                                    
+                                                    <h6> <p class="text-warning">* Bids Will Be Increased By <b> #{auctioneercdi.incrementAmount}</b> points</p> </h6>
                                                 </ul>
                                             </div>
-                                            <ul class="d-flex flex-column ms-4">
+                                            <ul class="d-flex flex-column ms-4 align-items-center">
                                                 <h2>Bid Timer</h2>
 
-                                                <h1 class="text-center">
+                                                <h1 class="text-center text-danger">
                                                     <h:outputText id="txt_count" value="#{auctioneercdi.number}"/>
                                                 </h1>
 
@@ -116,9 +114,9 @@
                         </p:panel>
                     </div>
 
-                    <div class="card col-xxl-3 shadow bg-body rounded">
+                    <div class="col-xxl-3  shadow bg-body rounded d-flex align-items-center justify-content-center">
                         <div class="card-body">
-                            <div class="card-body h-100 d-flex flex-column justify-content-between">
+                            <div class="card-body h-100 w-100 d-flex flex-column justify-content-between align-items-center">
                                 <h:form id="screenForm">
                                     <div class="d-flex flex-column justify-content-between">
                                         <p:commandButton value="Next Player" styleClass="btn  btn-outline-success mb-3" action="#{auctioneercdi.onNextPlayer()}" update="playerscreen screenForm timer growl" disabled="#{!auctioneercdi.disableSoldUnsold}" />

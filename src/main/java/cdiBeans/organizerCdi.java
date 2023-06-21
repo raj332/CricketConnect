@@ -10,6 +10,8 @@ import composite.Sidebar;
 import entities.Auctiondetailtb;
 import entities.Auctioneermaster;
 import entities.Organizermaster;
+import entities.Playermaster;
+import entities.Soldplayertb;
 import entities.Teammaster;
 import entities.Teamownermaster;
 import entities.Tournamenttb;
@@ -20,7 +22,6 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import java.util.List;
@@ -40,6 +41,8 @@ import restClient.teamClient;
 import restClient.tournamentClient;
 import serverBeans.auctionDetailEJBLocal;
 import serverBeans.auctioneerEJBLocal;
+import serverBeans.soldPlayerEJB;
+import serverBeans.soldPlayerEJBLocal;
 import serverBeans.teamEJBLocal;
 import serverBeans.tournamentEJBLocal;
 
@@ -51,14 +54,15 @@ import serverBeans.tournamentEJBLocal;
 @SessionScoped
 public class organizerCdi implements Serializable {
 
-   
     Alerts alert;
-     ArrayList<Sidebar> sidebarItems = new ArrayList<>();
+    ArrayList<Sidebar> sidebarItems = new ArrayList<>();
+
     public ArrayList<Sidebar> getSidebarItems() {
         return sidebarItems;
     }
-    //clients
-    String SelectedAuctioneer ;
+
+    // clients
+    String SelectedAuctioneer;
 
     public String getSelectedAuctioneer() {
         return SelectedAuctioneer;
@@ -67,27 +71,35 @@ public class organizerCdi implements Serializable {
     public void setSelectedAuctioneer(String SelectedAuctioneer) {
         this.SelectedAuctioneer = SelectedAuctioneer;
     }
+
     organizerClient client;
     tournamentClient tclient;
     teamClient teamclient;
-    Auctiondetailtb auctiondetail ;
+    Auctiondetailtb auctiondetail;
     Teammaster team;
     Organizermaster organizer;
-    Date Currentdate= new Date();
+    Date Currentdate = new Date();
     Tournamenttb tournament;
-    Tournamenttb tempTournament ;
-    String Organizerid= KeepRecord.getUserid();
-;
+    Tournamenttb tempTournament;
+    String Organizerid = KeepRecord.getUserid();
+    int tempteamid;
     String selectedOwnerId;
     Auctioneermaster auctioneer;
-    String currentPassword ;
+    String currentPassword;
     Response rs;
     UploadedFile teamLogo;
-    int selectedtournamentid ;
-    @EJB tournamentEJBLocal tejb ;
-    @EJB auctioneerEJBLocal auctioneerejb;
-    @EJB auctionDetailEJBLocal aucDetailejb;
-    @EJB teamEJBLocal teamejb;
+    int selectedtournamentid;
+    @EJB
+    tournamentEJBLocal tejb;
+    @EJB
+    auctioneerEJBLocal auctioneerejb;
+    @EJB
+    auctionDetailEJBLocal aucDetailejb;
+    @EJB
+    teamEJBLocal teamejb;
+    @EJB
+    soldPlayerEJBLocal soldejb;
+
     public Auctioneermaster getAuctioneer() {
         return auctioneer;
     }
@@ -95,7 +107,7 @@ public class organizerCdi implements Serializable {
     public void setAuctioneer(Auctioneermaster auctioneer) {
         this.auctioneer = auctioneer;
     }
-    
+
     GenericType<List<Tournamenttb>> glist = new GenericType<List<Tournamenttb>>() {
     };
     GenericType<List<Teamownermaster>> oglist = new GenericType<List<Teamownermaster>>() {
@@ -103,12 +115,13 @@ public class organizerCdi implements Serializable {
     GenericType<List<Teammaster>> tmglist = new GenericType<List<Teammaster>>() {
     };
     List<Teamownermaster> ownersList;
-    List<Teammaster> teamList ;
-      List<Tournamenttb> tournamnetlistForAuction;
-    List<Auctiondetailtb> auctionDetailList ;
+    List<Teammaster> teamList;
+    List<Tournamenttb> tournamnetlistForAuction;
+    List<Auctiondetailtb> auctionDetailList;
+
     public organizerCdi() {
         team = new Teammaster();
-       
+
         client = new organizerClient();
         auctiondetail = new Auctiondetailtb();
         tclient = new tournamentClient();
@@ -117,19 +130,19 @@ public class organizerCdi implements Serializable {
         auctioneer = new Auctioneermaster();
         tournament = new Tournamenttb();
         tempTournament = new Tournamenttb();
-       
-         sidebarItems.add(new Sidebar("fsfs","Dashboard","../organizer/home.jsf"));
-        sidebarItems.add(new Sidebar("fsfs","Add New Tournamnets","../organizer/createTournament.jsf"));
-          sidebarItems.add(new Sidebar("fsfs","View Tournamnets","../organizer/viewTournaments.jsf"));
-         sidebarItems.add(new Sidebar("fsfs","Add Teams","../organizer/createTeam.jsf"));
-         sidebarItems.add(new Sidebar("fsfs","Add Owners","../teamowner/insertOwner.jsf"));
-         sidebarItems.add(new Sidebar("fsfs","Add Auctioneer","../organizer/createAuctioneer.jsf"));
-         sidebarItems.add(new Sidebar("fsfs","Create new Auction","../organizer/createAuction.jsf"));
-         sidebarItems.add(new Sidebar("fsfs","Manage Owners","../teamowner/OwnerList.jsf"));         
-         //new jaimin
-         tournamnetlistForAuction = new ArrayList<>();
-         alert = new Alerts();
-         
+
+        sidebarItems.add(new Sidebar("fsfs", "Dashboard", "../organizer/home.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Add New Tournamnets", "../organizer/createTournament.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "View Tournamnets", "../organizer/viewTournaments.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Add Teams", "../organizer/createTeam.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Add Owners", "../teamowner/insertOwner.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Add Auctioneer", "../organizer/createAuctioneer.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Create new Auction", "../organizer/createAuction.jsf"));
+        sidebarItems.add(new Sidebar("fsfs", "Manage Owners", "../teamowner/OwnerList.jsf"));
+        // new jaimin
+        tournamnetlistForAuction = new ArrayList<>();
+        alert = new Alerts();
+
     }
 
     public Teammaster getTeam() {
@@ -171,8 +184,8 @@ public class organizerCdi implements Serializable {
     public void setTournamentid(int tournamentid) {
         this.selectedtournamentid = tournamentid;
     }
-  
-    public List<Auctioneermaster> showAuctioneerList(){
+
+    public List<Auctioneermaster> showAuctioneerList() {
 
         return auctioneerejb.getAuctioneerList(Organizerid);
     }
@@ -266,7 +279,7 @@ public class organizerCdi implements Serializable {
 
     public String register() {
         try {
-            organizer.setOrganizerId(organizer.getOrganizerId().concat(":"+currentPassword));
+            organizer.setOrganizerId(organizer.getOrganizerId().concat(":" + currentPassword));
             client.OrgenizerRegistration(organizer);
             return "login.jsf";
         } catch (Exception ex) {
@@ -291,7 +304,8 @@ public class organizerCdi implements Serializable {
             tclient.addTournament(tournament);
             tournament = new Tournamenttb();
             alert.showInfo("Tournament Creation Successfull");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
+            PrimeFaces.current().executeScript(
+                    "setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
             return null;
         } catch (Exception ex) {
             alert.showError("Tournament Creation Failed!");
@@ -299,22 +313,25 @@ public class organizerCdi implements Serializable {
         }
     }
 
-    public String createAuctioneer(){
-       
-             auctioneerejb.register(auctioneer, currentPassword);
-            alert.showInfo("Auctioneer Creation Successfull");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
-            return null;
-             
+    public String createAuctioneer() {
+
+        auctioneerejb.register(auctioneer, currentPassword);
+        alert.showInfo("Auctioneer Creation Successfull");
+        PrimeFaces.current()
+                .executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
+        return null;
+
     }
+
     public List<Tournamenttb> fetchAllTournamentsByOrganizerid() {
-       List<Tournamenttb> tournamnetlist  = tejb.getTournamentByOrganizer(KeepRecord.getUserid());
+        List<Tournamenttb> tournamnetlist = tejb.getTournamentByOrganizer(KeepRecord.getUserid());
         return tournamnetlist;
     }
 
-    public void fetchTournamentsForAuctionCreation(){
+    public void fetchTournamentsForAuctionCreation() {
         tournamnetlistForAuction = tejb.getTournamentForAuction(KeepRecord.getUserid());
     }
+
     public String addNewTeam() {
         try {
             this.upload();
@@ -326,38 +343,41 @@ public class organizerCdi implements Serializable {
             team.setOwnerId(t1);
             teamejb.registerTeam(team);
             alert.showInfo("Team Creation Successfull");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
+            PrimeFaces.current().executeScript(
+                    "setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
             return null;
         } catch (Exception ex) {
             alert.showError("Team Creation Failed!");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/createTournamnet.jsf'; }, 3000);");
+            PrimeFaces.current().executeScript(
+                    "setTimeout(function(){ window.location.href = '../organizer/createTournamnet.jsf'; }, 3000);");
             return null;
         }
     }
 
-    public String getTeamsByTournament(int tid){
-         try {
-          rs= teamclient.getAllTeams(Response.class, String.valueOf(tid));
-          teamList = rs.readEntity(tmglist);
+    public String getTeamsByTournament(int tid) {
+        try {
+            rs = teamclient.getAllTeams(Response.class, String.valueOf(tid));
+            teamList = rs.readEntity(tmglist);
             return "teamList.jsf";
         } catch (Exception ex) {
             return "error.jsf";
         }
-        
+
     }
+
     public void upload() throws IOException {
         if (teamLogo != null) {
             FacesMessage message = new FacesMessage("Successful", teamLogo.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
 
-            //read input as stream of data from file
+            // read input as stream of data from file
             InputStream inputStream = teamLogo.getInputStream();
 
             // create output stream of byte tyep
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
             int bytesRead;
-            //read input stream and write into byte output stream 
+            // read input stream and write into byte output stream
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
@@ -366,91 +386,110 @@ public class organizerCdi implements Serializable {
 
         }
     }
+
     public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-        FacesContext.getCurrentInstance().
-        addMessage(null, new FacesMessage(severity, summary, detail));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
     public void showInfo() {
         addMessage(FacesMessage.SEVERITY_INFO, "Info Message", "Message Content");
     }
 
-    public String createAuction(){
-        Tournamenttb t1= new Tournamenttb();
+    public String createAuction() {
+        Tournamenttb t1 = new Tournamenttb();
         t1.setTournamentId(selectedtournamentid);
         auctiondetail.setTornamentId(t1);
         Auctioneermaster au1 = new Auctioneermaster();
         au1.setAuctioneerId(SelectedAuctioneer);
         auctiondetail.setAuctioneerId(au1);
-        if(aucDetailejb.createAuction(auctiondetail)){
+        if (aucDetailejb.createAuction(auctiondetail)) {
             alert.showInfo("Auction Creation Successfull");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
+            PrimeFaces.current()
+                    .executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
             return null;
-           
-        }else{
+
+        } else {
             alert.showError("Auction Creation Failed");
-            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/createAuction.jsf'; }, 2000);");
+            PrimeFaces.current().executeScript(
+                    "setTimeout(function(){ window.location.href = '../organizer/createAuction.jsf'; }, 2000);");
             return null;
-           
+
         }
-        
-        
+
     }
-    public void showAuctionsByOrganizer(){
-        auctionDetailList= aucDetailejb.getAuctionListByOrganizerid(KeepRecord.getUserid());
+
+    public void showAuctionsByOrganizer() {
+        auctionDetailList = aucDetailejb.getAuctionListByOrganizerid(KeepRecord.getUserid());
     }
-    
-    public boolean matchDate(Date d1){
-        
-         return (d1.getDate() == Currentdate.getDate() && d1.getMonth()==Currentdate.getMonth() && d1.getYear()==Currentdate.getYear());
+
+    public boolean matchDate(Date d1) {
+
+        return (d1.getDate() == Currentdate.getDate() && d1.getMonth() == Currentdate.getMonth()
+                && d1.getYear() == Currentdate.getYear());
     }
-    public String changeAuctionStatus(Auctiondetailtb a1){
+
+    public String changeAuctionStatus(Auctiondetailtb a1) {
         a1.setStatus("live");
         aucDetailejb.editAuction(a1);
         System.gc();
         showAuctionsByOrganizer();
         return "home.jsf";
-      
+
     }
-    public String showAuctionUpdate(Auctiondetailtb item){
+
+    public String showAuctionUpdate(Auctiondetailtb item) {
         setAuctiondetail(item);
         return "updateAuction.jsf";
-    
+
     }
-    public String showLiveAuction(Auctiondetailtb item){
-       
+
+    public String showLiveAuction(Auctiondetailtb item) {
+
         return "AuctionDashboard.jsf";
     }
-    public String updateAuction(){
+
+    public String updateAuction() {
         aucDetailejb.editAuction(auctiondetail);
         showAuctionsByOrganizer();
         System.gc();
         return "home.jsf";
     }
-    public void onPageLoad()
-    {
+
+    public void onPageLoad() {
         Organizerid = KeepRecord.getUserid();
-         rs = client.getOwners(Response.class);
+        rs = client.getOwners(Response.class);
         ownersList = (List<Teamownermaster>) rs.readEntity(oglist);
     }
-   
-public String deleteTournament(int id){
-   tejb.removeTournament(id);
-   System.gc();
 
-    return "viewTournaments.jsf";
-}
-public String loadTournamentUpdateData(Tournamenttb t1){
-    tempTournament = t1;
-    return "updateTournament.jsf";
-}
-public String updateTournament(){
-    tejb.editTournament(tempTournament);
-    return "viewTournaments.jsf";
-}
-public String createWhatsappLink(int id){
-  String link=  "https://wa.me/send?text=Register%20for%20Tournament%0ATournament%20ID%3A%20";
-  link=link.concat(String.valueOf(id));
-  return link;
-}
+    public String deleteTournament(int id) {
+        tejb.removeTournament(id);
+        System.gc();
+
+        return "viewTournaments.jsf";
+    }
+
+    public String loadTournamentUpdateData(Tournamenttb t1) {
+        tempTournament = t1;
+        return "updateTournament.jsf";
+    }
+
+    public String updateTournament() {
+        tejb.editTournament(tempTournament);
+        return "viewTournaments.jsf";
+    }
+
+    public String createWhatsappLink(int id) {
+        String link = "https://wa.me/send?text=Register%20for%20Tournament%0ATournament%20ID%3A%20";
+        link = link.concat(String.valueOf(id));
+        return link;
+    }
+
+    public String loadplayersByTeam(int teamid) {
+        tempteamid = teamid;
+        return "PlayerList.jsf";
+    }
+
+    public List<Soldplayertb> getPlayersByTeam() {
+        return soldejb.getSoldPlayersByTeam(tempteamid);
+    }
 }
