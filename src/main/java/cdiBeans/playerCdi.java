@@ -247,6 +247,7 @@ public class playerCdi implements Serializable{
         player = new Playermaster();
         this.currentPassword ="";
          alert.showInfo("Registartion Successfull");
+         
             PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = 'login.jsf'; }, 2000);");
             return null;
         
@@ -308,6 +309,7 @@ public class playerCdi implements Serializable{
     public String Update(Playermaster player) throws IOException{
        
         playerejb.update(player);
+        player =new Playermaster();
         return showPlayerbyID();
     }
     public List<Auctiondetailtb> showAuctionsByplayer(){

@@ -168,6 +168,7 @@ public class commonCdi implements Serializable {
   
 
     public String resetPassword() throws InterruptedException{
+        
        if(verifyOTP()){
             Pbkdf2PasswordHashImpl pbk = new Pbkdf2PasswordHashImpl();
          String hash = pbk.generate(password.toCharArray());
@@ -179,7 +180,7 @@ public class commonCdi implements Serializable {
             resetPageData();// empty previously stored values  
           return null;
        }
-       resetPageData();
+       
         alert.showError("Wrong OTP Or Some Technical Error!!!");
        return "ForgotPassword.jsf";
         
@@ -199,7 +200,11 @@ public class commonCdi implements Serializable {
     
     public void sendEmail(){
         boolean flag=false;
-        if(msg!=true){
+        if(!(password.equals(confirmpassword))){
+            alert.showError("Password Mismatch!");
+        }
+        else{
+               if(msg!=true){
             String to = "bhattjaimin2001@gmail.com";
         String from = "bhattjaimin1812@gmail.com";
         String subject = "Your OTP For Password Reset";
@@ -236,6 +241,8 @@ public class commonCdi implements Serializable {
         }
         
         
+     
+        }
         
     }
 }

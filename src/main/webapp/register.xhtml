@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     
@@ -10,6 +11,7 @@
         <h:outputStylesheet name="css/styles.min.css" />
     <h:body>
   <!--  Body Wrapper -->
+   <p:growl id="growl" showDetail="true" />
   <h:form>
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -26,28 +28,30 @@
                 
                   <div class="mb-3">
                     <label for="organizerId" class="form-label">User ID</label>
-                    <h:inputText  class="form-control" id="organizerId" value="#{organizercdi.organizer.organizerId}" title="OrganizerId" required="true" requiredMessage="The OrganizerId field is required." />
+                    <p:inputText  class="form-control" id="organizerId" value="#{organizercdi.organizer.organizerId}" title="OrganizerId" required="true" requiredMessage="The OrganizerId field is required." />
                   </div>
                   <div class="mb-3">
                     <label for="mobileNumber" class="form-label">Mobile number</label>
-                     <h:inputText id="mobileNumber" class="form-control" value="#{organizercdi.organizer.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required."/>
+                    <p:inputText id="mobileNumber" class="form-control" value="#{organizercdi.organizer.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required.">
+                        <p:keyFilter mask="num" />
+                    </p:inputText>
                     
                   </div>
                   <div class="mb-4">
                     <label for="name" class="form-label">Name</label>
-                    <h:inputText id="name" class="form-control" value="#{organizercdi.organizer.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                    <p:inputText id="name" class="form-control" value="#{organizercdi.organizer.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
                   </div>
                   <div class="mb-4">
                     <label for="city" class="form-label">City</label>
-                    <h:inputText id="city" class="form-control" value="#{organizercdi.organizer.city}" title="city" required="true" requiredMessage="The Name field is required."/>
+                    <p:inputText id="city" class="form-control" value="#{organizercdi.organizer.city}" title="city" required="true" requiredMessage="The Name field is required."/>
                   </div>  
                      <div class="mb-4">
                                             <label for="pass" class="form-label">Password</label>
 
-                                            <h:inputText id="pass" value="#{organizercdi.currentPassword}" title="Password" required="true" requiredMessage="The Password field is required." class="form-control"/>
+                                            <p:password feedback="true" id="pass" value="#{organizercdi.currentPassword}" title="Password" required="true" requiredMessage="The Password field is required." class="form-control"/>
 
                        </div>
-                    <h:commandButton class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" value="Register" action="#{organizercdi.register()}"></h:commandButton>
+                  <p:commandButton class="btn btn-primary w-100 fs-4 mb-4 rounded-2" value="Register" action="#{organizercdi.register()}" update="growl"/>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
                     <a class="text-primary fw-bold ms-2" href="login.jsf">Sign In</a>
