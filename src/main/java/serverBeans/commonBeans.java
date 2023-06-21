@@ -51,5 +51,13 @@ public class commonBeans implements commonBeansLocal {
        public Projectusers getUserByID(String id){
       return  em.find(Projectusers.class, id);
     }
+       public void resetPassword(Projectusers user){
+           try{
+           em.merge(user);    
+           }catch(Exception ex){
+               ex.printStackTrace();
+           }
+           
+       }
 
 }

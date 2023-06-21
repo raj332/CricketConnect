@@ -12,6 +12,7 @@ Authentication\JwtCredential.class
 Authentication\TokenProvider.class
 Authentication\JwtConstants.class
 entities\Battingtypemaster.class
+cdiBeans\commonCdi$1.class
 serverBeans\soldPlayerEJB.class
 serverBeans\organizerBeansLocal.class
 restClient\playerClient.class
@@ -35,6 +36,7 @@ restClient\organizerClient.class
 cdiBeans\organizerCdi$2.class
 serverBeans\battingTypeEJB.class
 serverBeans\bowlingTypeEJBLocal.class
+composite\Alerts.class
 serverBeans\organizerBeans.class
 serverBeans\tournamentPlayersEJB.class
 Authentication\SecureAuthentication.class
@@ -64,7 +66,6 @@ composite\Sidebar.class
 entities\Unsoldplayertb.class
 serverBeans\teamEJBLocal.class
 entities\Teamownermaster_.class
-.netbeans_automatic_build
 cdiBeans\playerCdi$4.class
 serverBeans\playerEjbLocal.class
 restClient\commonClient.class

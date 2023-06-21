@@ -17,4 +17,5 @@ public interface commonBeansLocal {
         String checkLogin(Projectusers user);
         Projectgroups getUserGroup(String userid); 
         public Projectusers getUserByID(String id);
+        public void resetPassword(Projectusers user);
 }
