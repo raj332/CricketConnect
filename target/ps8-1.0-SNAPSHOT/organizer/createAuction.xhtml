@@ -30,56 +30,13 @@
 
 
 
-                            <div class="mt-2 w-100 card shadow-2 rounded grid ui-fluid d-flex flex-row justify-content-center align-items-center">
+                            <div class="mt-2 w-100 card  grid ui-fluid d-flex flex-row justify-content-center align-items-center">
 
 
                                 <div class="col-6 md:col-6">
-                                    <div class=" col-12 md:col-8">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-dollar"></i></div>
-                                            <p:inputNumber id="Baseprice" placeholder="Baseprice" value="#{organizercdi.auctiondetail.eachPlayerBasePrice}" required="true" label="Baseprice"/>
+                                     <div class=" col-12 md:col-8">
+                                                                               <p:outputLabel for="Tournamnet" value="Tournamnet"/>
 
-                                        </div>
-                                        <p:message for="Baseprice" />
-                                    </div>
-                                    <div class=" col-12 md:col-8 ">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
-                                            <p:datePicker id="date" placeholder="Date"  pattern="dd/MM/yyyy" required="true" value="#{organizercdi.auctiondetail.date}" requiredMessage=" Date field is required." />
-
-                                        </div>
-                                        <p:message for="date" />
-                                    </div>
-                                    <div class=" col-12 md:col-8">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-arrow-up"></i></div>
-                                            <p:inputNumber id="IncrementAmount" placeholder="Increment Amount" value="#{organizercdi.auctiondetail.bidIncrementAmount}" required="true" label="IncrementAmount">
-                                            </p:inputNumber>
-
-                                        </div>
-                                        <p:message for="IncrementAmount" />
-                                    </div>
-                                    <div class="col-12 md:col-8">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-wallet"></i></div>
-                                            <p:inputNumber id="TotalPurse" placeholder="Total Purse" required="true" value="#{organizercdi.auctiondetail.totalPurse}" label="TotalPurse">
-                                            </p:inputNumber>
-
-                                        </div>
-                                        <p:message for="TotalPurse" />
-                                    </div>
-                                </div>
-                                <div class=" col-6 md:col-6 mb-4">
-                                    <div class=" col-12 md:col-8">
-                                        <div class="ui-inputgroup">
-                                            <div class="ui-inputgroup-addon"><i class="pi pi-users"></i></div>
-                                            <p:inputNumber id="minplayers" placeholder="Squad Size" value="#{organizercdi.auctiondetail.minPlayer}" required="true" label="minplayers"/>
-
-                                        </div>
-                                        <p:message for="minplayers" />
-
-                                    </div>
-                                    <div class=" col-12 md:col-8">
                                         <div class="ui-inputgroup">
                                             <div class="ui-inputgroup-addon"><i class="pi pi-search-plus"></i></div>
                                             <p:selectOneMenu id="Tournamnet" value="#{organizercdi.selectedtournamentid}" rendered="#{organizercdi.tournamnetlistForAuction.size()>0}" placeholder="Select Tournament">
@@ -90,6 +47,62 @@
                                         <p:message for="Tournamnet" />
                                     </div>
                                     <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="Baseprice" value="Base Price"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-dollar"></i></div>
+                                            <p:inputNumber id="Baseprice" placeholder="Baseprice" value="#{organizercdi.auctiondetail.eachPlayerBasePrice}" required="true" label="Baseprice"/>
+
+                                        </div>
+                                        <p:message for="Baseprice" />
+                                    </div>
+                                    <div class=" col-12 md:col-8 ">
+                                        <p:outputLabel for="date" value="Auction Date"/>
+
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
+                                            <p:datePicker id="date" placeholder="Date"  pattern="dd/MM/yyyy" required="true" value="#{organizercdi.auctiondetail.date}" requiredMessage=" Date field is required." />
+
+                                        </div>
+                                        <p:message for="date" />
+                                    </div>
+                                    <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="IncrementAmount" value="Increment Amount"/>
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-arrow-up"></i></div>
+                                            <p:inputNumber id="IncrementAmount" placeholder="Increment Amount" value="#{organizercdi.auctiondetail.bidIncrementAmount}" required="true" label="IncrementAmount">
+                                            </p:inputNumber>
+
+                                        </div>
+                                        <p:message for="IncrementAmount" />
+                                    </div>
+                                    
+                                </div>
+                                <div class=" col-6 md:col-6 mb-4">
+                                    <div class="col-12 md:col-8">
+                                        <p:outputLabel for="TotalPurse" value="Total Purse"/>
+
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-wallet"></i></div>
+                                            <p:inputNumber id="TotalPurse" placeholder="Total Purse" required="true" value="#{organizercdi.auctiondetail.totalPurse}" label="TotalPurse">
+                                            </p:inputNumber>
+
+                                        </div>
+                                        <p:message for="TotalPurse" />
+                                    </div>
+                                    <div class=" col-12 md:col-8">
+                                       <p:outputLabel for="minplayers" value="Squad Size"/>
+
+                                        <div class="ui-inputgroup">
+                                            <div class="ui-inputgroup-addon"><i class="pi pi-users"></i></div>
+                                            <p:inputNumber id="minplayers" placeholder="Squad Size" value="#{organizercdi.auctiondetail.minPlayer}" required="true" label="minplayers"/>
+
+                                        </div>
+                                        <p:message for="minplayers" />
+
+                                    </div>
+                                   
+                                    <div class=" col-12 md:col-8">
+                                        <p:outputLabel for="Auctioneer" value="Auctioneer"/>
                                         <div class="ui-inputgroup">
                                             <div class="ui-inputgroup-addon"><i class="pi pi-user-edit"></i></div>
                                             <p:selectOneMenu id="Auctioneer" value="#{organizercdi.selectedAuctioneer}" placeholder="Select Auctioneer" >

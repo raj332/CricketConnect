@@ -31,7 +31,8 @@
                     <!--  Row 1 -->
                     <h:form id="myForm">
                         <div class="row" >
-
+                        <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">All Auctions </h3>
+                        <h4 class="text-bold text-center"><h:outputText  value="No Auction is there !!" rendered="#{organizercdi.auctionDetailList.size()==0}"/></h4>
                             <ui:repeat value="#{organizercdi.auctionDetailList}"  var="item" id="tournaments">
 
                                 <div  class="col-sm-6 col-xl-3" id="card">

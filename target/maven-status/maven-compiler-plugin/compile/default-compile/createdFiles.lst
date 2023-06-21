@@ -64,7 +64,6 @@ composite\Sidebar.class
 entities\Unsoldplayertb.class
 serverBeans\teamEJBLocal.class
 entities\Teamownermaster_.class
-.netbeans_automatic_build
 cdiBeans\playerCdi$4.class
 serverBeans\playerEjbLocal.class
 restClient\commonClient.class

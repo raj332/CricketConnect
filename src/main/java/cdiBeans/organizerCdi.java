@@ -9,6 +9,8 @@ import composite.Sidebar;
 import entities.Auctiondetailtb;
 import entities.Auctioneermaster;
 import entities.Organizermaster;
+import entities.Playermaster;
+import entities.Soldplayertb;
 import entities.Teammaster;
 import entities.Teamownermaster;
 import entities.Tournamenttb;
@@ -19,7 +21,6 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import java.util.List;
@@ -38,6 +39,8 @@ import restClient.teamClient;
 import restClient.tournamentClient;
 import serverBeans.auctionDetailEJBLocal;
 import serverBeans.auctioneerEJBLocal;
+import serverBeans.soldPlayerEJB;
+import serverBeans.soldPlayerEJBLocal;
 import serverBeans.teamEJBLocal;
 import serverBeans.tournamentEJBLocal;
 
@@ -75,7 +78,7 @@ public class organizerCdi implements Serializable {
     Tournamenttb tournament;
     Tournamenttb tempTournament ;
     String Organizerid= KeepRecord.getUserid();
-;
+int tempteamid;
     String selectedOwnerId;
     Auctioneermaster auctioneer;
     String currentPassword ;
@@ -86,6 +89,7 @@ public class organizerCdi implements Serializable {
     @EJB auctioneerEJBLocal auctioneerejb;
     @EJB auctionDetailEJBLocal aucDetailejb;
     @EJB teamEJBLocal teamejb;
+    @EJB soldPlayerEJBLocal soldejb ;
     public Auctioneermaster getAuctioneer() {
         return auctioneer;
     }
@@ -317,8 +321,11 @@ public class organizerCdi implements Serializable {
             t1.setOwnerId(selectedOwnerId);
             team.setOwnerId(t1);
             teamejb.registerTeam(team);
+            team = new Teammaster();
             return "viewTournaments.jsf";
+            
         } catch (Exception ex) {
+            team = new Teammaster();
             return "error.jsf";
         }
     }
@@ -434,5 +441,12 @@ public String createWhatsappLink(int id){
   String link=  "https://wa.me/send?text=Register%20for%20Tournament%0ATournament%20ID%3A%20";
   link=link.concat(String.valueOf(id));
   return link;
+}
+public String loadplayersByTeam(int teamid){
+tempteamid= teamid;
+return "PlayerList.jsf";
+}
+public List<Soldplayertb> getPlayersByTeam(){
+    return soldejb.getSoldPlayersByTeam(tempteamid);
 }
 }

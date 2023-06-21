@@ -227,4 +227,5 @@ public class auctioneerCdi implements Serializable {
       public String getImageDataUrl(byte[] imageData) {
         return "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(imageData);
     }
+    
 }
