@@ -20,5 +20,5 @@ public interface teamEJBLocal {
        Teammaster getTeamByid(int tournamnetid,int teamid);
        Teamownermaster getOwnerDetais(String ownerid,int tournamentid);
        List<Teammaster> getTeamsByTournamentId(int id);
-       
+       boolean updateTeam(Teammaster t1);
 }

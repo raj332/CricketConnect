@@ -10,6 +10,7 @@ import entities.Auctiondetailtb;
 import entities.Battingtypemaster;
 import entities.Bowlingtypemaster;
 import entities.Playermaster;
+import entities.Soldplayertb;
 import entities.Tournamentplayerslist;
 import entities.Tournamenttb;
 import java.io.ByteArrayOutputStream;
@@ -32,6 +33,7 @@ import org.primefaces.model.file.UploadedFile;
 import restClient.playerClient;
 import restClient.tournamentClient;
 import serverBeans.playerEjbLocal;
+import serverBeans.soldPlayerEJBLocal;
 import serverBeans.tournamentEJBLocal;
 import serverBeans.tournamentPlayersEJBLocal;
 
@@ -55,13 +57,13 @@ public class playerCdi implements Serializable{
     GenericType<List<Battingtypemaster>> gbatlist = new GenericType<List<Battingtypemaster>>(){};
     GenericType<List<Bowlingtypemaster>> gballlist = new GenericType<List<Bowlingtypemaster>>(){};
     List<Battingtypemaster> battingTypesList =  new ArrayList<>();
-    
+    List<Soldplayertb> teamlist ;
     GenericType<List<Tournamenttb>> gtournametlist = new GenericType<List<Tournamenttb>>(){};
     List<Tournamenttb> tournamentList; 
     @EJB tournamentPlayersEJBLocal tplayerEjb ;
     @EJB playerEjbLocal playerejb ;
      @EJB tournamentEJBLocal tournamnetejb;
-    
+    @EJB soldPlayerEJBLocal soldejb;
     List<Auctiondetailtb> auctionList ;
     public List<Tournamenttb> getTournamnetList() {
         return tournamentList;
@@ -240,11 +242,10 @@ public class playerCdi implements Serializable{
     public String insertPlayer() throws IOException{
         upload();
         player.setPlayerId(player.getPlayerId().concat(":"+currentPassword));
-        pclient.addPlayer(player);
+        playerejb.register(player);
         player = new Playermaster();
         this.currentPassword ="";
-        System.gc();
-        return "PlayerList.jsf";
+        return "login.jsf";
     }
     
     public String loadupdate(Playermaster p){
@@ -349,4 +350,7 @@ public class playerCdi implements Serializable{
      
     }
  
+     public List<Soldplayertb> showTeamsByPlayer(){
+           return soldejb.getSoldplayerTeams(KeepRecord.getUserid());  
+    }
 }

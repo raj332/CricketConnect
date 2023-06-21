@@ -51,6 +51,7 @@
                                             </p:commandButton>
                                             <p:commandButton   value="Go Live"  styleClass="ui-button-danger ui-button-outlined" action="#{organizercdi.showLiveAuction(item)}"  rendered="#{item.status.equals('live')}"/>
                                             <p:commandButton value="Edit"  styleClass="ui-button-warning ui-button-outlined" action="#{organizercdi.showAuctionUpdate(item)}" rendered="#{item.status.equals('upcomming')}"/>
+                                            <p:commandButton value="Finished"  styleClass="ui-button-success" disabled="true" rendered="#{item.status.equals('finished')}"/>
 
                                         </div>
                                     </div>

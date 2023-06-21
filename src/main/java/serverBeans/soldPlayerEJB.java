@@ -39,6 +39,26 @@ public class soldPlayerEJB implements soldPlayerEJBLocal {
         return null;
         } 
     }
+    
+  @Override
+    public boolean addSoldPlayer(Soldplayertb s1){
+       try{
+      em.persist(s1);
+        return true;
+        }catch(Exception ex){
+        return false;
+        } 
+        
+    }
+  @Override
+    public boolean removeByTournamentId(int tournamentid)  {
+         try{
+      em.createNamedQuery("Soldplayertb.RemoveByTournamentid").setParameter("tid", tournamentid).executeUpdate();
+        return true;
+        }catch(Exception ex){
+        return false;
+        } 
+    }  
     @Override
     public List<Soldplayertb> getSoldPlayersByTeam(int teamid) {
         List<Soldplayertb> soldPlayerList;
@@ -48,6 +68,17 @@ public class soldPlayerEJB implements soldPlayerEJBLocal {
         }catch(Exception ex){
         return null;
         }
+    }
+      @Override
+    public List<Soldplayertb> getSoldplayerTeams (String pid){
+        List<Soldplayertb> soldPlayerList;
+        try{
+            soldPlayerList = em.createNamedQuery("Soldplayertb.findByPlayerId").setParameter("playerId",pid).getResultList();
+            return soldPlayerList;
+        }catch(Exception ex){
+        return null;
+        }
+        
     }
     
     

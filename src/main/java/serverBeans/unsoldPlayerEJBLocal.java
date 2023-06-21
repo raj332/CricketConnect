@@ -17,5 +17,5 @@ import javax.ejb.Local;
 public interface unsoldPlayerEJBLocal {
     boolean addPlayerToUnsoldList(Unsoldplayertb player);
     List<Playermaster> ShowUnsoldPlayers(int tournamnetid);
-    
+    boolean removeByTournamentId(int tournamentid);
 }

@@ -30,6 +30,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Unsoldplayertb.findAll", query = "SELECT u FROM Unsoldplayertb u"),
     @NamedQuery(name = "Unsoldplayertb.findByPlayerId", query = "SELECT u FROM Unsoldplayertb u WHERE u.playerId = :playerId"),
+    @NamedQuery(name = "Unsoldplayertb.RemoveByTournamentid", query = "DELETE FROM Unsoldplayertb u WHERE u.tournamentId.tournamentId = :tid"),
     @NamedQuery(name = "Unsoldplayertb.findByDate", query = "SELECT u FROM Unsoldplayertb u WHERE u.date = :date")})
 public class Unsoldplayertb implements Serializable {
 
