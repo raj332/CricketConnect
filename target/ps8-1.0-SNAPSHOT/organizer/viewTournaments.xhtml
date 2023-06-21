@@ -48,7 +48,7 @@
                                         </p:column>
                                         <p:column headerText=""  >
                                             <div class="d-flex flex-row justify-content-around">
-                                                <a href="#{organizercdi.createWhatsappLink(item.tournamentId)}" target="_blank"> <p:commandButton type="button" styleClass=" ui-button-primary" icon="pi pi-pencil"  /></a>
+                                                <a href="#{organizercdi.createWhatsappLink(item.tournamentId)}" target="_blank"> <p:commandButton type="button" styleClass=" ui-button-success " icon="pi pi-whatsapp"  /></a>
                                                 <p:commandButton styleClass=" ui-button-primary" ajax="true" icon="pi pi-pencil" action="#{organizercdi.loadTournamentUpdateData(item)}" oncomplete="PF('dlg3').show()" />
  <p:commandButton styleClass=" ui-button-danger"  icon= "pi pi-trash" update="dataTbl" process="@this"  action="#{organizercdi.deleteTournament(item.tournamentId)}">                
                                                     <p:ajax event="click" listener="#{organizercdi.deleteTournament(item.tournamentId)}" update="dataTbl" /></p:commandButton>

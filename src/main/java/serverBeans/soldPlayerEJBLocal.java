@@ -16,4 +16,7 @@ import javax.ejb.Local;
 public interface soldPlayerEJBLocal {
     List<Soldplayertb> getAllSoldPlayers();
     List<Soldplayertb> getSoldPlayersByTeam(int teamid);
+    public boolean addSoldPlayer(Soldplayertb s1);
+    boolean removeByTournamentId(int tournamentid);
+    List<Soldplayertb> getSoldplayerTeams (String pid);
 }

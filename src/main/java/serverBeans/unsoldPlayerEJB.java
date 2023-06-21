@@ -28,7 +28,15 @@ public class unsoldPlayerEJB implements unsoldPlayerEJBLocal {
             return false;
         }
     }
-
+@Override
+    public boolean removeByTournamentId(int tournamentid){
+        try{
+            em.createNamedQuery("Unsoldplayertb.RemoveByTournamentid").setParameter("tid", tournamentid).executeUpdate();
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+    }
     @Override
     public List<Playermaster> ShowUnsoldPlayers(int tournamnetid) {
         try{

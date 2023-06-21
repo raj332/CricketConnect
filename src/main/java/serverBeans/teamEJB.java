@@ -54,7 +54,20 @@ public class teamEJB implements teamEJBLocal {
             return null;
         }
     }
-
+@Override
+    public boolean updateTeam(Teammaster t1){
+        try{
+       Teammaster t2=  em.find(Teammaster.class, t1.getTeamId());
+        t2.setTeamLogo(t1.getTeamLogo());
+        t2.setTeamName(t1.getTeamName());
+        t2.setTotalPurse(t1.getTotalPurse());
+        t2.setOwnerId(t1.getOwnerId());
+        em.persist(t2);
+        return true;
+        }catch(Exception ex){
+            return false;
+        }
+    }
     @Override
     public Teamownermaster getOwnerDetais(String ownerid, int tournamentid) {
         try{

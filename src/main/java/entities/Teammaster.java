@@ -120,15 +120,15 @@ public class Teammaster implements Serializable {
     public void setSoldplayertbList(List<Soldplayertb> soldplayertbList) {
         this.soldplayertbList = soldplayertbList;
     }
-
-    public Tournamenttb getTournamentid() {
+@JsonbTransient
+public Tournamenttb getTournamentid() {
         return tournamentid;
     }
 
     public void setTournamentid(Tournamenttb tournamentid) {
         this.tournamentid = tournamentid;
     }
-
+@JsonbTransient
     public Teamownermaster getOwnerId() {
         return ownerId;
     }

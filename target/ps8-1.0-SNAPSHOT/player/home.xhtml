@@ -25,7 +25,35 @@
                         <mycc:navbar/>
                     </header>
                     <!--  Header End -->
+ <div class="container-fluid">
+                    <!--  Row 1 -->
 
+                    <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">My Teams </h3>
+ 
+                    <div class="row mt-3">
+
+                        <ui:repeat value="#{playercdi.showTeamsByPlayer()}" var="item" id="teams">
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="card overflow-hidden rounded-2">
+                                    <div class="position-relative">
+                                        <a href="javascript:void(0)">
+                                            <h:graphicImage  value="#{playercdi.getImageDataUrl(item.teamId.teamLogo)}" height="200px" class="card-img-top rounded-0" alt="..."/></a>
+                                    </div>
+                                    <div class="card-body pt-3 p-4 d-flex flex-row justify-content-between">
+                                       
+                                        <h6 class="fw-semibold fs-4">Team #{item.teamId.teamName}</h6>
+                                        <h6 class="fw-semibold fs-4">Bought in #{item.soldAmount} points</h6>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+
+
+                    </div>
+               
+                </div>
+                    <h3 class="text-bold text-primary text-center h-3rem border-bottom-1">All Tournaments </h3>
 
                     <div class="container-fluid d-flex flex-wrap justify-content-start">
 

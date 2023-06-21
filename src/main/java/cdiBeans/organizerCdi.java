@@ -38,6 +38,7 @@ import restClient.teamClient;
 import restClient.tournamentClient;
 import serverBeans.auctionDetailEJBLocal;
 import serverBeans.auctioneerEJBLocal;
+import serverBeans.teamEJBLocal;
 import serverBeans.tournamentEJBLocal;
 
 /**
@@ -84,7 +85,7 @@ public class organizerCdi implements Serializable {
     @EJB tournamentEJBLocal tejb ;
     @EJB auctioneerEJBLocal auctioneerejb;
     @EJB auctionDetailEJBLocal aucDetailejb;
-
+    @EJB teamEJBLocal teamejb;
     public Auctioneermaster getAuctioneer() {
         return auctioneer;
     }
@@ -264,7 +265,7 @@ public class organizerCdi implements Serializable {
         try {
             organizer.setOrganizerId(organizer.getOrganizerId().concat(":"+currentPassword));
             client.OrgenizerRegistration(organizer);
-            return "home.jsf";
+            return "login.jsf";
         } catch (Exception ex) {
             return "error.jsf";
         }
@@ -315,7 +316,7 @@ public class organizerCdi implements Serializable {
             Teamownermaster t1 = new Teamownermaster();
             t1.setOwnerId(selectedOwnerId);
             team.setOwnerId(t1);
-            teamclient.addTeam(team);
+            teamejb.registerTeam(team);
             return "viewTournaments.jsf";
         } catch (Exception ex) {
             return "error.jsf";
