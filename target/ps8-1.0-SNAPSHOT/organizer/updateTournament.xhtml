@@ -13,6 +13,7 @@
     <h:outputStylesheet name="css/styles.min.css" />
     <h:outputStylesheet name="primeflex/primeflex.css"/>
     <h:body>
+        <p:growl id="growl" showDetail="true"/>
         <h:form>
             <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
                  data-sidebar-position="fixed" data-header-position="fixed">
@@ -51,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 md:col-4 my-3 d-flex justify-content-between ">
-                                        <p:commandButton id="Save" value="Save" action="#{organizercdi.updateTournament()}" class="text-bold text-xl mx-2"/>
+                                        <p:commandButton id="Save" value="Save" action="#{organizercdi.updateTournament()}" class="text-bold text-xl mx-2" update="growl"/>
                                         <p:commandButton id="Cancle" value="Cancle" action="viewTournaments.jsf" class="text-bold text-xl mx-2"/>
 
                                     </div>

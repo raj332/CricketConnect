@@ -5,6 +5,7 @@
 package cdiBeans;
 
 import Authentication.KeepRecord;
+import composite.Alerts;
 import composite.Sidebar;
 import entities.Auctiondetailtb;
 import entities.Auctioneermaster;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.file.UploadedFile;
 
 import restClient.organizerClient;
@@ -50,7 +52,7 @@ import serverBeans.tournamentEJBLocal;
 public class organizerCdi implements Serializable {
 
    
-    
+    Alerts alert;
      ArrayList<Sidebar> sidebarItems = new ArrayList<>();
     public ArrayList<Sidebar> getSidebarItems() {
         return sidebarItems;
@@ -126,6 +128,7 @@ public class organizerCdi implements Serializable {
          sidebarItems.add(new Sidebar("fsfs","Manage Owners","../teamowner/OwnerList.jsf"));         
          //new jaimin
          tournamnetlistForAuction = new ArrayList<>();
+         alert = new Alerts();
          
     }
 
@@ -287,17 +290,22 @@ public class organizerCdi implements Serializable {
             tournament.setOrganizerId(org);
             tclient.addTournament(tournament);
             tournament = new Tournamenttb();
-            return "viewTournaments.jsf";
+            alert.showInfo("Tournament Creation Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
+            return null;
         } catch (Exception ex) {
-            return "error.jsf";
+            alert.showError("Tournament Creation Failed!");
+            return "createTournament.jsf";
         }
     }
 
     public String createAuctioneer(){
        
              auctioneerejb.register(auctioneer, currentPassword);
-      
-             return "home.jsf";
+            alert.showInfo("Auctioneer Creation Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
+            return null;
+             
     }
     public List<Tournamenttb> fetchAllTournamentsByOrganizerid() {
        List<Tournamenttb> tournamnetlist  = tejb.getTournamentByOrganizer(KeepRecord.getUserid());
@@ -317,9 +325,13 @@ public class organizerCdi implements Serializable {
             t1.setOwnerId(selectedOwnerId);
             team.setOwnerId(t1);
             teamejb.registerTeam(team);
-            return "viewTournaments.jsf";
+            alert.showInfo("Team Creation Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/viewTournaments.jsf'; }, 2000);");
+            return null;
         } catch (Exception ex) {
-            return "error.jsf";
+            alert.showError("Team Creation Failed!");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/createTournamnet.jsf'; }, 3000);");
+            return null;
         }
     }
 
@@ -371,9 +383,15 @@ public class organizerCdi implements Serializable {
         au1.setAuctioneerId(SelectedAuctioneer);
         auctiondetail.setAuctioneerId(au1);
         if(aucDetailejb.createAuction(auctiondetail)){
-            return "home.jsf";
+            alert.showInfo("Auction Creation Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/home.jsf'; }, 2000);");
+            return null;
+           
         }else{
-            return "createAuction.jsf";
+            alert.showError("Auction Creation Failed");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/createAuction.jsf'; }, 2000);");
+            return null;
+           
         }
         
         

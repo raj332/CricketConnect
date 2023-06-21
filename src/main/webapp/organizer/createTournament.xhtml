@@ -13,6 +13,7 @@
     <h:outputStylesheet name="css/styles.min.css" />
     <h:outputStylesheet name="primeflex/primeflex.css"/>
     <h:body>
+        <p:growl id="growl" showDetail="true"/>
          <h:form>
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
              data-sidebar-position="fixed" data-header-position="fixed">
@@ -58,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 md:col-4 my-3 ">
-                                        <p:commandButton id="create" value="Create" action="#{organizercdi.createTournament()}" class="text-bold text-xl"/>
+                                        <p:commandButton id="create" value="Create" action="#{organizercdi.createTournament()}" class="text-bold text-xl" update="growl"/>
                                     </div>
                                 </div>
                             </div>

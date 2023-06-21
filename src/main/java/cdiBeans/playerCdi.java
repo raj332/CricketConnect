@@ -5,6 +5,7 @@
 package cdiBeans;
 
 import Authentication.KeepRecord;
+import composite.Alerts;
 import composite.Sidebar;
 import entities.Auctiondetailtb;
 import entities.Battingtypemaster;
@@ -45,7 +46,7 @@ import serverBeans.tournamentPlayersEJBLocal;
 @SessionScoped
 public class playerCdi implements Serializable{
 
-   
+   Alerts alert;
     ArrayList<Sidebar> sidebarItems = new ArrayList<>();
     public ArrayList<Sidebar> getSidebarItems() {
         return sidebarItems;
@@ -184,7 +185,7 @@ public class playerCdi implements Serializable{
          //18/6 night
          
          searchedTournament = new Tournamenttb();
-        
+        alert = new Alerts();
         
     }
     public void getTournamnetForPlayer(){
@@ -245,7 +246,10 @@ public class playerCdi implements Serializable{
         playerejb.register(player);
         player = new Playermaster();
         this.currentPassword ="";
-        return "login.jsf";
+         alert.showInfo("Registartion Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = 'login.jsf'; }, 2000);");
+            return null;
+        
     }
     
     public String loadupdate(Playermaster p){

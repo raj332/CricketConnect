@@ -11,6 +11,7 @@
     <h:outputStylesheet name="css/styles.min.css" />
     <h:outputStylesheet name="primeflex/primeflex.css"/>
     <h:body>
+          <p:growl id="growl" showDetail="true" />
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
              data-sidebar-position="fixed" data-header-position="fixed">
             <mycc:sidebar items="#{organizercdi.sidebarItems}" />
@@ -101,7 +102,7 @@
                                     </div>
 
                                     <div class=" col-12 md:col-4">
-                                        <p:commandButton value="Create" update="messages" action="#{organizercdi.createAuction()}" actionListener="#{organizercdi.showInfo}"  />
+                                        <p:commandButton value="Create" update="messages growl" action="#{organizercdi.createAuction()}" actionListener="#{organizercdi.showInfo}"   />
 
                                     </div>
                                 </div>

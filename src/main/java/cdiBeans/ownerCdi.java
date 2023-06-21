@@ -4,6 +4,7 @@
  */
 package cdiBeans;
 
+import composite.Alerts;
 import composite.Bid;
 import entities.Playermaster;
 import entities.Projectusers;
@@ -17,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import org.primefaces.PrimeFaces;
 import restClient.commonClient;
 import restClient.organizerClient;
 import restClient.ownerClient;
@@ -30,7 +32,7 @@ import restClient.ownerClient;
 public class ownerCdi implements Serializable {
    Bid BidDeatils;
     int number;
-
+    Alerts alert;
     public int getNumber() {
         return number;
     }
@@ -75,6 +77,7 @@ public class ownerCdi implements Serializable {
     GenericType<List<Teamownermaster>> glist = new GenericType<List<Teamownermaster>>(){};
     public ownerCdi() {
         BidDeatils = new Bid();
+        alert = new Alerts();
     }
 
     public Teamownermaster getOwner() {
@@ -116,7 +119,10 @@ public class ownerCdi implements Serializable {
         owclient.addOwner(owner);
         owner= new Teamownermaster();
         System.gc();
-        return "OwnerList.xhtml";
+         alert.showInfo("Owner Creation Successfull");
+            PrimeFaces.current().executeScript("setTimeout(function(){ window.location.href = '../organizer/OwnerList.jsf'; }, 2000);");
+            return null;
+       
     }
     
      public void checkUsernameAvailability() {

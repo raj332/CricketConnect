@@ -26,7 +26,8 @@
 
                             <div class="col-md-12 col-lg-12 col-xxl-6">
                                 <div class="card mb-0">
-                                    <h2 class="text-center form-label pt-3">Register</h2>
+                                    <p class="text-center"> <h:graphicImage library="images" name="logo3.png" alt="" width="200" height="50"></h:graphicImage>
+           </p>
 
                                     <div class="card-body">
 
@@ -45,19 +46,28 @@
                                             </div>
                                             <div class="col-xxl-6 form-label">
                                                 <p:outputLabel value="MobileNumber" for="mobileNumber" />
-                                                <p:inputText id="mobileNumber" value="#{playercdi.player.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required." class="form-control rounded"/>
+                                                <p:inputText id="mobileNumber" value="#{playercdi.player.mobileNumber}" title="MobileNumber" required="true" requiredMessage="The MobileNumber field is required." class="form-control rounded">
+<!--                                                  <p:keyFilter mask="num" regEx="/^\d{10}$/" />
+                                                  -->
+                                                      <p:keyFilter mask="num" />
+                                                  
+                                                </p:inputText>
                                                 <p:message for="mobileNumber"/>
                                             </div>
                                         </div>
                                         <div class="mb-3 row form-label">
                                             <div class="col-xxl-6">
                                                 <p:outputLabel value="Name" for="name" />
-                                                <p:inputText id="name" value="#{playercdi.player.name}" title="Name" required="true" requiredMessage="The Name field is required." class="form-control rounded"/>
+                                                <p:inputText id="name" value="#{playercdi.player.name}" title="Name" required="true" requiredMessage="The Name field is required." class="form-control rounded">
+                                                <p:keyFilter mask="alpha" />
+                                                </p:inputText>
                                                 <p:message for="name"/>
                                             </div>
                                             <div class="d-flex flex-column col-xxl-6 form-label">
                                                 <p:outputLabel value="Password" for="pass" />
-                                                <p:password id="pass"  toggleMask="true" redisplay="true"  value="#{playercdi.currentPassword}" title="Password" required="true" requiredMessage="The Password field is required." styleClass=" h-100 form-control rounded"/>
+                                                <p:password id="pass"  toggleMask="true" redisplay="true"  value="#{playercdi.currentPassword}" title="Password" required="true" requiredMessage="The Password field is required." styleClass=" h-100 form-control rounded">
+                                                 <p:keyFilter mask="regex" regEx="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+                                                </p:password>
                                                 <p:message for="pass"/>                                           
 
                                             </div>
@@ -89,7 +99,9 @@
                                             </div>
                                             <div class="col-xxl-6 form-label">
                                                 <h:outputLabel value="Age" for="age" />
-                                                <p:inputText id="age" value="#{playercdi.player.age}" title="Age" required="true" requiredMessage="The Age field is required." class="form-control rounded"/>
+                                                <p:inputText id="age" value="#{playercdi.player.age}" title="Age" required="true" requiredMessage="The Age field is required." class="form-control rounded">
+                                                 <p:keyFilter mask="num" />
+                                                </p:inputText>
                                                 <p:message for="age"/>
                                             </div>
                                         </div>

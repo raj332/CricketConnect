@@ -5,6 +5,7 @@
 package cdiBeans;
 
 import Authentication.KeepRecord;
+import composite.Alerts;
 import composite.Sidebar;
 import entities.Auctiondetailtb;
 import entities.Playermaster;
@@ -34,6 +35,8 @@ import serverBeans.unsoldPlayerEJBLocal;
 @Named(value = "auctioneercdi")
 @SessionScoped
 public class auctioneerCdi implements Serializable {
+   
+    Alerts alert;
   @EJB auctioneerEJBLocal auctioneerejb;
     @EJB teamEJBLocal teamejb ;
     @EJB auctionDetailEJBLocal aucDetailejb;
@@ -57,7 +60,7 @@ public class auctioneerCdi implements Serializable {
          sidebarItems.add(new Sidebar("fsfs","Dashboard","home.jsf"));
       
         sidebarItems.add(new Sidebar("fsfs","My Profile","Profile.jsf"));
-       
+       alert = new Alerts();
     }
 
     public boolean isDisableSoldUnsold() {
@@ -170,6 +173,7 @@ public class auctioneerCdi implements Serializable {
         auction.setStatus("finished");
         aucDetailejb.editAuction(auction);
         System.gc();
+         alert.showInfo("Auction Finished!");
         }else{
         incrementAmount = auction.getBidIncrementAmount();
         currentBidAmount = (int) auction.getEachPlayerBasePrice();
@@ -199,7 +203,7 @@ public class auctioneerCdi implements Serializable {
         int remainpurse = (int) (currentTeam.getTotalPurse() - currentBidAmount) ;
         currentTeam.setTotalPurse(remainpurse);
         teamejb.updateTeam(currentTeam);
-      
+        alert.showInfo("Player Sold To "+currentTeam.getTeamName());
     }
     public void onPlayerUnsold(){
         countStopper++;
@@ -211,7 +215,7 @@ public class auctioneerCdi implements Serializable {
         p1.setPlayermaster(currentPlayer);
         p1.setTournamentId(auction.getTornamentId());
         unsoldejb.addPlayerToUnsoldList(p1);
-        
+        alert.showError("Player Remain Unsold ");
       
         
     }

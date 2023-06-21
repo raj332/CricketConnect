@@ -22,7 +22,7 @@ public class Alerts {
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
       public void showInfo(String message) {
-        addMessage(FacesMessage.SEVERITY_INFO, "Info Message", message);
+        addMessage(FacesMessage.SEVERITY_INFO, "Success", message);
     }
       public void showWarning(String message) {
         addMessage(FacesMessage.SEVERITY_WARN, "Warning", message);

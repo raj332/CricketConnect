@@ -14,7 +14,7 @@
 
     <h:body>
 
-
+        <p:growl id="growl" showDetail="true"/>
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
@@ -121,9 +121,9 @@
                             <div class="card-body h-100 d-flex flex-column justify-content-between">
                                 <h:form id="screenForm">
                                     <div class="d-flex flex-column justify-content-between">
-                                        <p:commandButton value="Next Player" styleClass="btn  btn-outline-success mb-3" action="#{auctioneercdi.onNextPlayer()}" update="playerscreen screenForm timer" disabled="#{!auctioneercdi.disableSoldUnsold}" />
-                                        <p:commandButton value="Sold " styleClass="btn  ui-button-success mb-3" action="#{auctioneercdi.onPlayerSold()}" update="listForm playerscreen screenForm timer"  disabled="#{auctioneercdi.disableSoldUnsold || auctioneercdi.currentTeam.teamId==null}" />
-                                        <p:commandButton value="Unsold " styleClass="btn  ui-button-warning mb-3" action="#{auctioneercdi.onPlayerUnsold()}" update="playerscreen screenForm timer" disabled="#{auctioneercdi.disableSoldUnsold}"/>
+                                        <p:commandButton value="Next Player" styleClass="btn  btn-outline-success mb-3" action="#{auctioneercdi.onNextPlayer()}" update="playerscreen screenForm timer growl" disabled="#{!auctioneercdi.disableSoldUnsold}" />
+                                        <p:commandButton value="Sold " styleClass="btn  ui-button-success mb-3" action="#{auctioneercdi.onPlayerSold()}" update="listForm playerscreen screenForm timer growl"  disabled="#{auctioneercdi.disableSoldUnsold || auctioneercdi.currentTeam.teamId==null}" />
+                                        <p:commandButton value="Unsold " styleClass="btn  ui-button-warning mb-3" action="#{auctioneercdi.onPlayerUnsold()}" update="playerscreen screenForm timer growl" disabled="#{auctioneercdi.disableSoldUnsold}"/>
                                         <p:commandButton value="Back to home" styleClass="btn  ui-button-danger mb-3" action="#{auctioneercdi.handleAuctionLeave()}" />
                                     </div>
 
